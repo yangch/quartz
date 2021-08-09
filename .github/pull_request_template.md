@@ -1,4 +1,4 @@
-In submitting this contribution, I agree to the current Software AG contributor agreement as referred to here: https://github.com/quartz-scheduler/contributing/CONTRIBUTING.md
+In submitting this contribution, I agree to the current Software AG contributor agreement as referred to here: https://github.com/quartz-scheduler/contributing/blob/main/CONTRIBUTING.md
 
 This PR...
 ## Changes

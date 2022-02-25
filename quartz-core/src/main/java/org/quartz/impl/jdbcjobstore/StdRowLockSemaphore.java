@@ -171,6 +171,12 @@ public class StdRowLockSemaphore extends DBSemaphore {
                 }
                 
                 if(count < maxRetryLocal) {
+                    try {
+                        conn.rollback();
+                    } catch (SQLException e) {
+                        getLog().error(
+                                "Couldn't rollback jdbc connection. "+e.getMessage(), e);
+                    }
                     // pause a bit to give another thread some time to commit the insert of the new lock row
                     try {
                         Thread.sleep(retryPeriodLocal);

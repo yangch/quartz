@@ -73,6 +73,11 @@
       <version>2.7</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.glassfish.corba</groupId>
+      <artifactId>rmic</artifactId>
+      <version>4.2.4</version>
+    </dependency>
   </dependencies>
   
   <build>
@@ -80,7 +85,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>2.9</version>
+        <version>3.3.0</version>
         <configuration>
           <skip>${skipJavadoc}</skip>
           <quiet>true</quiet>

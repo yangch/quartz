@@ -37,7 +37,7 @@
     <developer>
     <id>jhouserizer</id>
     <name>James House</name>
-    <email>jhouse@terracotta.org</email>
+    <email>james.house@gmail.com</email>
     <organization>Terracotta</organization>
     <organizationUrl>http://www.terracotta.org</organizationUrl>
     <roles>
@@ -62,8 +62,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
 
     <revision>2.4.0-SNAPSHOT</revision>
 
@@ -79,9 +79,9 @@
     <checkstyle-config-file>${user.dir}/checkstyle/src/main/resources/checkstyle.xml</checkstyle-config-file>
     <checkstyle-header-file>${user.dir}/checkstyle/src/main/resources/header.txt</checkstyle-header-file>
 
-    <terracotta-snapshots-url>http://nexus.terracotta.eur.ad.sag/content/repositories/terracotta-snapshots</terracotta-snapshots-url>
-    <terracotta-staging-url>http://nexus.terracotta.eur.ad.sag/content/repositories/terracotta-staging</terracotta-staging-url>
-    <terracotta-releases-url>http://nexus.terracotta.eur.ad.sag/content/repositories/terracotta-releases</terracotta-releases-url>
+    <terracotta-snapshots-url>https://nexus.terracotta.eur.ad.sag/content/repositories/terracotta-snapshots</terracotta-snapshots-url>
+    <terracotta-staging-url>https://nexus.terracotta.eur.ad.sag/content/repositories/terracotta-staging</terracotta-staging-url>
+    <terracotta-releases-url>https://nexus.terracotta.eur.ad.sag/content/repositories/terracotta-releases</terracotta-releases-url>
   </properties>
 
   <build>
@@ -421,7 +421,7 @@
     <profile>
       <id>doclint-java8-disable</id>
       <activation>
-        <jdk>[1.8,)</jdk>
+        <jdk>[11,)</jdk>
       </activation>
       <properties>
         <additionalparam>-Xdoclint:none</additionalparam>

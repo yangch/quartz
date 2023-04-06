@@ -58,12 +58,12 @@ import org.quartz.spi.MutableTrigger;
  *             .build();
  *         
  *         scheduler.scheduleJob(job, trigger);
- * <pre>
+ * </pre>
  *   
  * @since 2.1.0
  * 
  * @author James House
- * @author Zemian Deng <saltnlight5@gmail.com>
+ * @author Zemian Deng &lt;saltnlight5@gmail.com&gt;
  */
 public class DailyTimeIntervalScheduleBuilder extends ScheduleBuilder<DailyTimeIntervalTrigger> {
 

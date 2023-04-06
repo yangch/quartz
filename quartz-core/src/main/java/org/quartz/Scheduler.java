@@ -480,7 +480,7 @@ public interface Scheduler {
     /**
      * Remove (delete) the <code>{@link org.quartz.Trigger}</code> with the
      * given key, and store the new given one - which must be associated
-     * with the same job (the new trigger must have the job name & group specified) 
+     * with the same job (the new trigger must have the job name and group specified)
      * - however, the new trigger need not have the same name as the old trigger.
      * 
      * @param triggerKey identity of the trigger to replace
@@ -488,7 +488,7 @@ public interface Scheduler {
      *          The new <code>Trigger</code> to be stored.
      * 
      * @return <code>null</code> if a <code>Trigger</code> with the given
-     *         name & group was not found and removed from the store (and the 
+     *         name and group was not found and removed from the store (and the
      *         new trigger is therefore not stored), otherwise
      *         the first fire time of the newly scheduled trigger is returned.
      */

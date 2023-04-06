@@ -58,7 +58,7 @@
     <module>quartz-plugins</module>
     <module>terracotta</module>
     <module>quartz</module>
-    <module>distribution</module>
+<!--    <module>distribution</module> -->
   </modules>
 
   <properties>

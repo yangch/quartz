@@ -48,7 +48,7 @@ import org.quartz.DateBuilder.IntervalUnit;
  * @since 2.1.0
  * 
  * @author James House
- * @author Zemian Deng <saltnlight5@gmail.com>
+ * @author Zemian Deng &lt;saltnlight5@gmail.com&gt;
  */
 public interface DailyTimeIntervalTrigger extends Trigger {
 

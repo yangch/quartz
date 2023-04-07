@@ -37,9 +37,6 @@ import org.quartz.spi.ThreadPool;
  * jobs (e.g. will never have start() called on it).
  * </p>
  * 
- * <p>
- * </p>
- * 
  * @author Wayne Fay
  */
 public class ZeroSizeThreadPool implements ThreadPool {

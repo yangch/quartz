@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.Scheduler;
+import org.quartz.SchedulerConfigException;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.JobListener;
@@ -40,7 +41,8 @@ import java.text.MessageFormat;
  * </p>
  * 
  * <p>
- * JobToBeFiredMessage - available message data are: <table>
+ * JobToBeFiredMessage - available message data are:</p> <table>
+ * <caption>List of available data for messages.</caption>
  * <tr>
  * <th>Element</th>
  * <th>Data Type</th>
@@ -87,14 +89,15 @@ import java.text.MessageFormat;
  * <td>The re-fire count from the JobExecutionContext.</td>
  * </tr>
  * </table>
- * 
+ * <p>
  * The default message text is <i>"Job {1}.{0} fired (by trigger {4}.{3}) at:
  * {2, date, HH:mm:ss MM/dd/yyyy}"</i>
  * </p>
  * 
  * 
  * <p>
- * JobSuccessMessage - available message data are: <table>
+ * JobSuccessMessage - available message data are: </p> <table>
+ * <caption>List of available data for messages.</caption>
  * <tr>
  * <th>Element</th>
  * <th>Data Type</th>
@@ -146,16 +149,16 @@ import java.text.MessageFormat;
  * <td>The string value (toString() having been called) of the result (if any) 
  *      that the Job set on the JobExecutionContext, with on it.  "NULL" if no 
  *      result was set.</td>
- * </td>
  * </tr>
  * </table>
- * 
+ * <p>
  * The default message text is <i>"Job {1}.{0} execution complete at {2, date,
  * HH:mm:ss MM/dd/yyyy} and reports: {8}"</i>
  * </p>
  * 
  * <p>
- * JobFailedMessage - available message data are: <table>
+ * JobFailedMessage - available message data are: </p> <table>
+ * <caption>List of available data for messages.</caption>
  * <tr>
  * <th>Element</th>
  * <th>Data Type</th>
@@ -208,14 +211,15 @@ import java.text.MessageFormat;
  * </td>
  * </tr>
  * </table>
- * 
+ * <p>
  * The default message text is <i>"Job {1}.{0} execution failed at {2, date,
  * HH:mm:ss MM/dd/yyyy} and reports: {8}"</i>
  * </p>
  * 
  * 
  * <p>
- * JobWasVetoedMessage - available message data are: <table>
+ * JobWasVetoedMessage - available message data are:</p> <table>
+ * <caption>List of available data for messages.</caption>
  * <tr>
  * <th>Element</th>
  * <th>Data Type</th>
@@ -262,7 +266,7 @@ import java.text.MessageFormat;
  * <td>The re-fire count from the JobExecutionContext.</td>
  * </tr>
  * </table>
- * 
+ * <p>
  * The default message text is <i>"Job {1}.{0} was vetoed.  It was to be fired 
  * (by trigger {4}.{3}) at: {2, date, HH:mm:ss MM/dd/yyyy}"</i>
  * </p>
@@ -398,11 +402,9 @@ public class LoggingJobHistoryPlugin implements SchedulerPlugin, JobListener {
      */
 
     /**
-     * <p>
      * Called during creation of the <code>Scheduler</code> in order to give
      * the <code>SchedulerPlugin</code> a chance to initialize.
-     * </p>
-     * 
+     *
      * @throws SchedulerConfigException
      *           if there is an error initializing.
      */
@@ -417,11 +419,9 @@ public class LoggingJobHistoryPlugin implements SchedulerPlugin, JobListener {
     }
 
     /**
-     * <p>
      * Called in order to inform the <code>SchedulerPlugin</code> that it
      * should free up all of it's resources because the scheduler is shutting
      * down.
-     * </p>
      */
     public void shutdown() {
         // nothing to do...

@@ -47,7 +47,7 @@ import org.quartz.spi.MutableTrigger;
  *             .build();
  *         
  *         scheduler.scheduleJob(job, trigger);
- * <pre>
+ * </pre>
  *
  * @see SimpleTrigger
  * @see CalendarIntervalScheduleBuilder

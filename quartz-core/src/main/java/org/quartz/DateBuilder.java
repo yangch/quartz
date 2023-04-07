@@ -48,7 +48,7 @@ import java.util.TimeZone;
  *             .build();
  *         
  *         scheduler.scheduleJob(job, trigger);
- * <pre>
+ * </pre>
  *  
  * @see TriggerBuilder
  * @see JobBuilder 
@@ -764,7 +764,10 @@ public class DateBuilder {
      * </p>
      * 
      * <p>
-     * More examples: <table>
+     * More examples:
+     * </p>
+     * <table>
+     * <caption>Examples of inputs and corresponding outputs.</caption>
      * <tr>
      * <th>Input Time</th>
      * <th>Minute-Base</th>
@@ -795,42 +798,42 @@ public class DateBuilder {
      * <td>30</td>
      * <td>12:00:00</td>
      * </tr>
+     * <tr>
      * <td>11:16:41</td>
      * <td>17</td>
      * <td>11:17:00</td>
      * </tr>
-     * </tr>
+     * <tr>
      * <td>11:17:41</td>
      * <td>17</td>
      * <td>11:34:00</td>
      * </tr>
-     * </tr>
+     * <tr>
      * <td>11:52:41</td>
      * <td>17</td>
      * <td>12:00:00</td>
      * </tr>
-     * </tr>
+     * <tr>
      * <td>11:52:41</td>
      * <td>5</td>
      * <td>11:55:00</td>
      * </tr>
-     * </tr>
+     * <tr>
      * <td>11:57:41</td>
      * <td>5</td>
      * <td>12:00:00</td>
      * </tr>
-     * </tr>
+     * <tr>
      * <td>11:17:41</td>
      * <td>0</td>
      * <td>12:00:00</td>
      * </tr>
-     * </tr>
+     * <tr>
      * <td>11:17:41</td>
      * <td>1</td>
      * <td>11:08:00</td>
      * </tr>
      * </table>
-     * </p>
      * 
      * @param date
      *          the Date to round, if <code>null</code> the current time will
@@ -895,7 +898,7 @@ public class DateBuilder {
      * <p>
      * The rules for calculating the second are the same as those for
      * calculating the minute in the method 
-     * <code>getNextGivenMinuteDate(..)<code>.
+     * <code>getNextGivenMinuteDate(..)</code>.
      * </p>
      *
      * @param date the Date to round, if <code>null</code> the current time will
@@ -948,9 +951,9 @@ public class DateBuilder {
     }
 
     /**
-     * Translate a date & time from a users time zone to the another
+     * Translate a date and time from a users time zone to the another
      * (probably server) time zone to assist in creating a simple trigger with 
-     * the right date & time.
+     * the right date and time.
      * 
      * @param date the date to translate
      * @param src the original time-zone

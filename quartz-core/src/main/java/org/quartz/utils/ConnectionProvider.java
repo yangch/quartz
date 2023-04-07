@@ -27,7 +27,6 @@ import java.sql.SQLException;
  * @see DBConnectionManager
  * @see PoolingConnectionProvider
  * @see JNDIConnectionProvider
- * @see org.quartz.utils.weblogic.WeblogicConnectionProvider
  * 
  * @author Mohammad Rezaei
  */

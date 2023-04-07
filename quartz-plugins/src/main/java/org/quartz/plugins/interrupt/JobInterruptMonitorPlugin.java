@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * configured max time) and tells the scheduler to "try" interrupting it if
  * enabled.
  * 
- * @see org.quartz.Scheduler#interrupt()
+ * @see org.quartz.Scheduler#interrupt(JobKey)
  * 
  * @author Rama Chavali
  */

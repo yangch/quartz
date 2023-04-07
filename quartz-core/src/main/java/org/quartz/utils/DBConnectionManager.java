@@ -30,7 +30,6 @@ import java.util.HashMap;
  * @see ConnectionProvider
  * @see PoolingConnectionProvider
  * @see JNDIConnectionProvider
- * @see org.quartz.utils.weblogic.WeblogicConnectionProvider
  * 
  * @author James House
  * @author Sharada Jambula

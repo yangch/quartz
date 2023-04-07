@@ -31,7 +31,7 @@ import java.util.TimeZone;
  * @since 2.0.3
  * 
  * @author James House
- * @author Zemian Deng <saltnlight5@gmail.com>
+ * @author Zemian Deng &lt;saltnlight5@gmail.com&gt;
  */
 public class TimeOfDay implements Serializable {
 

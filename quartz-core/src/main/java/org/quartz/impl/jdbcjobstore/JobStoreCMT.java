@@ -18,11 +18,19 @@
 
 package org.quartz.impl.jdbcjobstore;
 
+import java.lang.String;
+import java.lang.String;
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.quartz.JobPersistenceException;
 import org.quartz.SchedulerConfigException;
+import org.quartz.impl.jdbcjobstore.JobStoreSupport;
+import org.quartz.impl.jdbcjobstore.JobStoreSupport;
+import org.quartz.impl.jdbcjobstore.JobStoreSupport;
+import org.quartz.impl.jdbcjobstore.JobStoreSupport;
+import org.quartz.impl.jdbcjobstore.JobStoreSupport;
+import org.quartz.impl.jdbcjobstore.JobStoreSupport;
 import org.quartz.spi.ClassLoadHelper;
 import org.quartz.spi.SchedulerSignaler;
 import org.quartz.utils.DBConnectionManager;
@@ -216,8 +224,8 @@ public class JobStoreCMT extends JobStoreSupport {
      * "TRIGGER_ACCESS".  If null, then no lock is acquired, but the
      * txCallback is still executed in a transaction.
      * 
-     * @see JobStoreSupport#executeInNonManagedTXLock(String, TransactionCallback)
-     * @see JobStoreTX#executeInLock(String, TransactionCallback)
+     * @see JobStoreSupport#executeInNonManagedTXLock(java.lang.String, org.quartz.impl.jdbcjobstore.JobStoreSupport.TransactionCallback, org.quartz.impl.jdbcjobstore.JobStoreSupport.TransactionValidator) 
+     * @see JobStoreTX#executeInLock(java.lang.String, org.quartz.impl.jdbcjobstore.JobStoreSupport.TransactionCallback) 
      * @see JobStoreSupport#getNonManagedTXConnection()
      * @see JobStoreSupport#getConnection()
      */

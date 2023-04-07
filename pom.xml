@@ -45,7 +45,7 @@
     </roles>
     <timezone>-6</timezone>
     </developer>
-  </developers>  
+  </developers>
   <modules>
     <module>checkstyle</module>
     <module>quartz-core</module>
@@ -58,12 +58,14 @@
     <module>quartz-plugins</module>
     <module>terracotta</module>
     <module>quartz</module>
+<!--    <module>distribution</module> -->
   </modules>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.release>11</maven.compiler.release>
 
     <revision>2.4.0-SNAPSHOT</revision>
 

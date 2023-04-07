@@ -34,7 +34,7 @@ import org.quartz.impl.StdSchedulerFactory;
  *
  * <p>
  * You'll want to add something like this to your WEB-INF/web.xml file:
- *
+ * </p>
  * <pre>
  *     &lt;context-param&gt;
  *         &lt;param-name&gt;quartz:config-file&lt;/param-name&gt;
@@ -59,8 +59,6 @@ import org.quartz.impl.StdSchedulerFactory;
  *         &lt;/listener-class&gt;
  *     &lt;/listener&gt;
  * </pre>
- *
- * </p>
  * <p>
  * The init parameter 'quartz:config-file' can be used to specify the path (and
  * filename) of your Quartz properties file. If you leave out this parameter,

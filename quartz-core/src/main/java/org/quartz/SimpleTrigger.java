@@ -41,7 +41,7 @@ public interface SimpleTrigger extends Trigger {
      * <p>
      * <i>NOTE:</i> This instruction should typically only be used for
      * 'one-shot' (non-repeating) Triggers. If it is used on a trigger with a
-     * repeat count > 0 then it is equivalent to the instruction <code>{@link #MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_REPEAT_COUNT}
+     * repeat count &gt; 0 then it is equivalent to the instruction <code>{@link #MISFIRE_INSTRUCTION_RESCHEDULE_NOW_WITH_REMAINING_REPEAT_COUNT}
      * </code>.
      * </p>
      */

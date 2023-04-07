@@ -40,7 +40,8 @@ import org.quartz.spi.SchedulerPlugin;
  * </p>
  * 
  * <p>
- * TriggerFiredMessage - available message data are: <table>
+ * TriggerFiredMessage - available message data are: </p> <table>
+ * <caption>List of available data for messages.</caption>
  * <tr>
  * <th>Element</th>
  * <th>Data Type</th>
@@ -87,13 +88,14 @@ import org.quartz.spi.SchedulerPlugin;
  * <td>The re-fire count from the JobExecutionContext.</td>
  * </tr>
  * </table>
- * 
+ * <p>
  * The default message text is <i>"Trigger {1}.{0} fired job {6}.{5} at: {4,
  * date, HH:mm:ss MM/dd/yyyy}"</i>
  * </p>
  * 
  * <p>
- * TriggerMisfiredMessage - available message data are: <table>
+ * TriggerMisfiredMessage - available message data are: </p> <table>
+ * <caption>List of available data for messages.</caption>
  * <tr>
  * <th>Element</th>
  * <th>Data Type</th>
@@ -135,14 +137,15 @@ import org.quartz.spi.SchedulerPlugin;
  * <td>The Job's group.</td>
  * </tr>
  * </table>
- * 
+ * <p>
  * The default message text is <i>"Trigger {1}.{0} misfired job {6}.{5} at:
  * {4, date, HH:mm:ss MM/dd/yyyy}. Should have fired at: {3, date, HH:mm:ss
  * MM/dd/yyyy}"</i>
  * </p>
  * 
  * <p>
- * TriggerCompleteMessage - available message data are: <table>
+ * TriggerCompleteMessage - available message data are: </p> <table>
+ * <caption>List of available data for messages.</caption>
  * <tr>
  * <th>Element</th>
  * <th>Data Type</th>
@@ -200,7 +203,7 @@ import org.quartz.spi.SchedulerPlugin;
  * code.</td>
  * </tr>
  * </table>
- * 
+ * <p>
  * The default message text is <i>"Trigger {1}.{0} completed firing job
  * {6}.{5} at {4, date, HH:mm:ss MM/dd/yyyy} with resulting trigger instruction
  * code: {9}"</i>
@@ -320,11 +323,9 @@ public class LoggingTriggerHistoryPlugin implements SchedulerPlugin,
      */
 
     /**
-     * <p>
      * Called during creation of the <code>Scheduler</code> in order to give
      * the <code>SchedulerPlugin</code> a chance to initialize.
-     * </p>
-     * 
+     *
      * @throws SchedulerConfigException
      *           if there is an error initializing.
      */
@@ -340,11 +341,9 @@ public class LoggingTriggerHistoryPlugin implements SchedulerPlugin,
     }
 
     /**
-     * <p>
      * Called in order to inform the <code>SchedulerPlugin</code> that it
      * should free up all of it's resources because the scheduler is shutting
      * down.
-     * </p>
      */
     public void shutdown() {
         // nothing to do...

@@ -20,6 +20,7 @@ package org.quartz.plugins.management;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.quartz.Scheduler;
+import org.quartz.SchedulerConfigException;
 import org.quartz.SchedulerException;
 import org.quartz.spi.ClassLoadHelper;
 import org.quartz.spi.SchedulerPlugin;

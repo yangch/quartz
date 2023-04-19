@@ -1,5 +1,9 @@
-# Maven and test related noise
-target/
+# gradle
+.gradle/
+**/build/
+!**/src/**/build
+
+# misplaced test artifacts
 derby.log
 logs/
 tmp/
@@ -25,3 +29,9 @@ nbproject/
 
 # MacOSX noise
 .DS_Store
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build

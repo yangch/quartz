@@ -9,26 +9,7 @@ repositories {
 
 publishing {
     publications {
-        maven(MavenPublication) {
-            pom {
-                name = "$project.name"
-                description = 'Quartz Enterprise Job Scheduler'
-                url = 'https://www.quartz-scheduler.org/'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com:quartz-scheduler/quartz.git'
-                    developerConnection = 'scm:git:ssh:git@github.com:quartz-scheduler/quartz.git'
-                    url = 'https://github.com/quartz-scheduler/quartz'
-                }
-            }
-
-            from components.java
-        }
+        getByName('maven').pom.description = 'Quartz Enterprise Job Scheduler'
     }
 }
 

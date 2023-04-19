@@ -1,3 +1,10 @@
+plugins {
+    // This adds tasks to auto close or release nexus staging repos
+    // see https://github.com/gradle-nexus/publish-plugin/
+    id "io.github.gradle-nexus.publish-plugin"
+}
+
+
 allprojects {
     group 'org.quartz-scheduler'
     version quartzVersion
@@ -16,5 +23,19 @@ allprojects {
                 languageVersion = JavaLanguageVersion.of(11)
             }
         }
+    }
+
+    plugins.withType(MavenPublishPlugin) {
+        plugins.apply(SigningPlugin)
+        signing {
+            required { !version.endsWith("SNAPSHOT") }
+            sign publishing.publications
+        }
+    }
+}
+
+nexusPublishing {
+    repositories {
+        sonatype()
     }
 }

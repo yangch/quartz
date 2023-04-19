@@ -25,6 +25,14 @@ publishing {
                     developerConnection = 'scm:git:ssh:git@github.com:quartz-scheduler/quartz.git'
                     url = 'https://github.com/quartz-scheduler/quartz'
                 }
+                developers {
+                    developer {
+                        name = "Terracotta Engineers"
+                        email = "tc-oss@softwareag.com"
+                        organization = "Terracotta Inc., a wholly-owned subsidiary of Software AG USA, Inc."
+                        organizationUrl = "http://www.quartz-scheduler.org/"
+                    }
+                }
             }
 
             from components.java

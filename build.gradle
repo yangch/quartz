@@ -1,0 +1,20 @@
+allprojects {
+    group 'org.quartz-scheduler'
+    version quartzVersion
+}
+
+subprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+allprojects {
+    plugins.withType(JavaBasePlugin) {
+        java {
+            toolchain {
+                languageVersion = JavaLanguageVersion.of(11)
+            }
+        }
+    }
+}

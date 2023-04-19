@@ -1,0 +1,62 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+dependencies {
+    implementation project(':quartz')
+
+    implementation "org.slf4j:slf4j-api:$slf4jVersion"
+    runtimeOnly "org.slf4j:slf4j-log4j12:$slf4jVersion"
+
+    compileOnly 'javax.jms:javax.jms-api:2.0.1'
+    compileOnly 'javax.mail:mail:1.4.7'
+    compileOnly 'org.apache.openejb:javaee-api:6.0-5'
+    compileOnly 'org.glassfish.corba:rmic:4.2.4'
+
+    testImplementation 'javax.transaction:javax.transaction-api:1.3'
+    testImplementation 'commons-io:commons-io:2.7'
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation 'org.hamcrest:hamcrest-library:1.2'
+
+    testImplementation 'org.subethamail:subethasmtp:3.1.7'
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+test {
+    maxParallelForks 1
+    forkEvery 1
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+//            groupId = "$project.group"
+//            artifactId = 'quartz'
+//            version = "$project.version"
+
+            pom {
+                name = "$project.name"
+                description = 'Quartz Enterprise Job Scheduler - additional library of ready to use Jobs'
+                url = 'https://www.quartz-scheduler.org/'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com:quartz-scheduler/quartz.git'
+                    developerConnection = 'scm:git:ssh:git@github.com:quartz-scheduler/quartz.git'
+                    url = 'https://github.com/quartz-scheduler/quartz'
+                }
+            }
+
+            from components.java
+        }
+    }
+}

@@ -1,3 +1,7 @@
+import org.gradle.api.publish.maven.internal.publication.MavenPomInternal;
+import org.gradle.api.publish.maven.internal.publisher.MavenProjectIdentity;
+import static org.gradle.api.publish.plugins.PublishingPlugin.PUBLISH_TASK_GROUP;
+
 plugins {
     // This adds tasks to auto close or release nexus staging repos
     // see https://github.com/gradle-nexus/publish-plugin/
@@ -31,7 +35,79 @@ allprojects {
             required { !version.endsWith("SNAPSHOT") }
             sign publishing.publications
         }
+
+        publishing {
+            publications {
+                maven(MavenPublication) {
+                    pom {
+                        name = "$project.name"
+                        url = 'https://www.quartz-scheduler.org/'
+                        licenses {
+                            license {
+                                name = 'The Apache License, Version 2.0'
+                                url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            }
+                        }
+                        scm {
+                            connection = 'scm:git:git://github.com:quartz-scheduler/quartz.git'
+                            developerConnection = 'scm:git:ssh:git@github.com:quartz-scheduler/quartz.git'
+                            url = 'https://github.com/quartz-scheduler/quartz'
+                        }
+                        developers {
+                            developer {
+                                name = "Terracotta Engineers"
+                                email = "tc-oss@softwareag.com"
+                                organization = "Terracotta Inc., a wholly-owned subsidiary of Software AG USA, Inc."
+                                organizationUrl = "http://www.quartz-scheduler.org/"
+                            }
+                        }
+                    }
+                    from components.java
+                }
+            }
+        }
+
+        // for MANIFEST.MF
+        jar {
+            manifest {
+                attributes(
+                        "Implementation-Title": project.name,
+                        "Implementation-Vendor-Id": project.group,
+                        "Implementation-Version": project.version,
+                        "Built-By": System.getProperty("user.name"),
+                        "Built-JDK": System.getProperty("java.version")
+                )
+            }
+        }
+
     }
+
+    // Put pom.xml and pom.properties in the jar:
+    project.afterEvaluate{p ->
+        // module.json publishing confuses sonatype and it doesn't process the jar.
+        tasks.withType(GenerateModuleMetadata) {
+            enabled = false
+        }
+        tasks.withType(GenerateMavenPom) {pomTask ->
+            MavenProjectIdentity identity = ((MavenPomInternal) pomTask.getPom()).getProjectIdentity();
+            TaskProvider<WriteProperties> pomPropertiesTask = project.getTasks().register(pomTask.getName().replace("PomFile", "PomProperties"), WriteProperties.class, task -> {
+                task.dependsOn(pomTask);
+                task.setGroup(PUBLISH_TASK_GROUP);
+                task.setOutputFile(new File(pomTask.getDestination().getParentFile(), "pom.properties"));
+                task.property("groupId", identity.getGroupId());
+                task.property("artifactId", identity.getArtifactId());
+                task.property("version", identity.getVersion());
+            });
+
+            project.tasks.withType(Jar).configureEach{jar ->
+                jar.into("META-INF/maven/" + identity.getGroupId().get() + "/" + identity.getArtifactId().get(), spec -> {
+                    spec.from(pomTask, pom -> pom.rename(".*", "pom.xml"));
+                    spec.from(pomPropertiesTask);
+                });
+            }
+        }
+    }
+
 }
 
 nexusPublishing {

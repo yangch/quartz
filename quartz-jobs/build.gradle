@@ -34,37 +34,6 @@ test {
 
 publishing {
     publications {
-        maven(MavenPublication) {
-//            groupId = "$project.group"
-//            artifactId = 'quartz'
-//            version = "$project.version"
-
-            pom {
-                name = "$project.name"
-                description = 'Quartz Enterprise Job Scheduler - additional library of ready to use Jobs'
-                url = 'https://www.quartz-scheduler.org/'
-                licenses {
-                    license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    }
-                }
-                scm {
-                    connection = 'scm:git:git://github.com:quartz-scheduler/quartz.git'
-                    developerConnection = 'scm:git:ssh:git@github.com:quartz-scheduler/quartz.git'
-                    url = 'https://github.com/quartz-scheduler/quartz'
-                }
-                developers {
-                    developer {
-                        name = "Terracotta Engineers"
-                        email = "tc-oss@softwareag.com"
-                        organization = "Terracotta Inc., a wholly-owned subsidiary of Software AG USA, Inc."
-                        organizationUrl = "http://www.quartz-scheduler.org/"
-                    }
-                }
-            }
-
-            from components.java
-        }
+        getByName('maven').pom.description = 'Quartz Enterprise Job Scheduler - additional library of ready to use Jobs'
     }
 }

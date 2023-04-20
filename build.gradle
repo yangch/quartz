@@ -76,7 +76,8 @@ allprojects {
                                     // Patch up dependency scopes per expectations of maven users
                                     (dependency.groupId.text() == 'com.mchange' ||
                                             dependency.groupId.text() == 'com.zaxxer' ||
-                                            dependency.artifactId.text() == 'slf4j-log4j12')
+                                            dependency.artifactId.text() == 'slf4j-log4j12' ||
+                                            dependency.groupId.text() == 'javax.xml' )
                                 }
                                 .each { dependency ->
                                     // Set scope value to compile.

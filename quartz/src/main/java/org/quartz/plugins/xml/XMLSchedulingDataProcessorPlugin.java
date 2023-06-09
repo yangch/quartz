@@ -294,7 +294,7 @@ public class XMLSchedulingDataProcessorPlugin
     }
     
     /**
-     * Overriden to ignore <em>wrapInUserTransaction</em> because shutdown()
+     * Overridden to ignore <em>wrapInUserTransaction</em> because shutdown()
      * does not interact with the <code>Scheduler</code>. 
      */
     @Override

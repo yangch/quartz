@@ -599,7 +599,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
     /**
      * Get whether to check to see if there are Triggers that have misfired
      * before actually acquiring the lock to recover them.  This should be 
-     * set to false if the majority of the time, there are are misfired
+     * set to false if the majority of the time, there are misfired
      * Triggers.
      */
     public boolean getDoubleCheckLockMisfireHandler() {
@@ -609,7 +609,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
     /**
      * Set whether to check to see if there are Triggers that have misfired
      * before actually acquiring the lock to recover them.  This should be 
-     * set to false if the majority of the time, there are are misfired
+     * set to false if the majority of the time, there are misfired
      * Triggers.
      */
     @SuppressWarnings("UnusedDeclaration") /* called reflectively */

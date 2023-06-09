@@ -1271,7 +1271,7 @@ public final class CronExpression implements Serializable, Cloneable {
                 if (lastDayOfMonth) {
                     if(!nearestWeekday) {
                         t = day;
-                        day = getlastDayOfMonth(mon, cl.get(Calendar.YEAR));
+                        day = getLastDayOfMonth(mon, cl.get(Calendar.YEAR));
                         day -= lastDayOffset;
                         if(t > day) {
                             mon++;
@@ -1284,7 +1284,7 @@ public final class CronExpression implements Serializable, Cloneable {
                         }
                     } else {
                         t = day;
-                        day = getlastDayOfMonth(mon, cl.get(Calendar.YEAR));
+                        day = getLastDayOfMonth(mon, cl.get(Calendar.YEAR));
                         day -= lastDayOffset;
                         
                         java.util.Calendar tcal = java.util.Calendar.getInstance(getTimeZone());
@@ -1295,7 +1295,7 @@ public final class CronExpression implements Serializable, Cloneable {
                         tcal.set(Calendar.MONTH, mon - 1);
                         tcal.set(Calendar.YEAR, cl.get(Calendar.YEAR));
                         
-                        int ldom = getlastDayOfMonth(mon, cl.get(Calendar.YEAR));
+                        int ldom = getLastDayOfMonth(mon, cl.get(Calendar.YEAR));
                         int dow = tcal.get(Calendar.DAY_OF_WEEK);
 
                         if(dow == Calendar.SATURDAY && day == 1) {
@@ -1331,7 +1331,7 @@ public final class CronExpression implements Serializable, Cloneable {
                     tcal.set(Calendar.MONTH, mon - 1);
                     tcal.set(Calendar.YEAR, cl.get(Calendar.YEAR));
                     
-                    int ldom = getlastDayOfMonth(mon, cl.get(Calendar.YEAR));
+                    int ldom = getLastDayOfMonth(mon, cl.get(Calendar.YEAR));
                     int dow = tcal.get(Calendar.DAY_OF_WEEK);
 
                     if(dow == Calendar.SATURDAY && day == 1) {
@@ -1359,7 +1359,7 @@ public final class CronExpression implements Serializable, Cloneable {
                     t = day;
                     day = st.first();
                     // make sure we don't over-run a short month, such as february
-                    int lastDay = getlastDayOfMonth(mon, cl.get(Calendar.YEAR));
+                    int lastDay = getLastDayOfMonth(mon, cl.get(Calendar.YEAR));
                     if (day > lastDay) {
                         day = daysOfMonth.first();
                         mon++;
@@ -1393,7 +1393,7 @@ public final class CronExpression implements Serializable, Cloneable {
                         daysToAdd = dow + (7 - cDow);
                     }
 
-                    int lDay = getlastDayOfMonth(mon, cl.get(Calendar.YEAR));
+                    int lDay = getLastDayOfMonth(mon, cl.get(Calendar.YEAR));
 
                     if (day + daysToAdd > lDay) { // did we already miss the
                         // last one?
@@ -1449,7 +1449,7 @@ public final class CronExpression implements Serializable, Cloneable {
                     daysToAdd = (nthDayOfWeek - weekOfMonth) * 7;
                     day += daysToAdd;
                     if (daysToAdd < 0
-                            || day > getlastDayOfMonth(mon, cl
+                            || day > getLastDayOfMonth(mon, cl
                                     .get(Calendar.YEAR))) {
                         cl.set(Calendar.SECOND, 0);
                         cl.set(Calendar.MINUTE, 0);
@@ -1484,7 +1484,7 @@ public final class CronExpression implements Serializable, Cloneable {
                         daysToAdd = dow + (7 - cDow);
                     }
 
-                    int lDay = getlastDayOfMonth(mon, cl.get(Calendar.YEAR));
+                    int lDay = getLastDayOfMonth(mon, cl.get(Calendar.YEAR));
 
                     if (day + daysToAdd > lDay) { // will we pass the end of
                         // the month?
@@ -1615,7 +1615,7 @@ public final class CronExpression implements Serializable, Cloneable {
         return ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0));
     }
 
-    protected int getlastDayOfMonth(int monthNum, int year) {
+    protected int getLastDayOfMonth(int monthNum, int year) {
 
         switch (monthNum) {
             case 1:

@@ -30,7 +30,7 @@ import org.quartz.impl.StdSchedulerFactory;
 
 /**
  * <p>
- * A ServletContextListner that can be used to initialize Quartz.
+ * A ServletContextListener that can be used to initialize Quartz.
  * </p>
  *
  * <p>

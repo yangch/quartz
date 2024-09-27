@@ -60,8 +60,8 @@ allprojects {
                         developers {
                             developer {
                                 name = "Terracotta Engineers"
-                                email = "tc-oss@softwareag.com"
-                                organization = "Terracotta Inc., a wholly-owned subsidiary of Software AG USA, Inc."
+                                email = "tc-oss@wwpdl.vnet.ibm.com"
+                                organization = "Super iPaaS Integration LLC, an IBM Company"
                                 organizationUrl = "http://www.quartz-scheduler.org/"
                             }
                         }
@@ -77,7 +77,7 @@ allprojects {
                                     (dependency.groupId.text() == 'com.mchange' ||
                                             dependency.groupId.text() == 'com.zaxxer' ||
                                             dependency.artifactId.text() == 'slf4j-log4j12' ||
-                                            dependency.groupId.text() == 'javax.xml' )
+                                            dependency.groupId.text() == 'jakarta.xml' )
                                 }
                                 .each { dependency ->
                                     // Set scope value to compile.

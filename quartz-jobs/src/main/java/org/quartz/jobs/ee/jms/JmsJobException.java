@@ -1,5 +1,6 @@
 /* 
  * All content copyright Terracotta, Inc., unless otherwise indicated. All rights reserved.
+ * Copyright Super iPaaS Integration LLC, an IBM Company 2024
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not 
  * use this file except in compliance with the License. You may obtain a copy 
@@ -21,7 +22,7 @@ import org.quartz.SchedulerException;
 
 /**
  * The JmsJobException is used to indicate an error during sending of a
- * <code>javax.jms.Message</code>.
+ * <code>jakarta.jms.Message</code>.
  * 
  * @author Fernando Ribeiro
  * @author Weston M. Price

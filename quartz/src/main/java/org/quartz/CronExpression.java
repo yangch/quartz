@@ -895,7 +895,7 @@ public final class CronExpression implements Serializable, Cloneable {
         buf.append(lastDayOfWeek);
         buf.append("\n");
         buf.append("NthDayOfWeek: ");
-        buf.append(nthdayOfWeek);
+        buf.append(nthDayOfWeek);
         buf.append("\n");
         buf.append("years: ");
         buf.append(getExpressionSetSummary(years));

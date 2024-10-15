@@ -525,7 +525,7 @@ public final class CronExpression implements Serializable, Cloneable {
             throw pe;
         } catch (Exception e) {
             throw new ParseException("Illegal cron expression format ("
-                    + e.toString() + ")", 0);
+                    + e + ")", 0);
         }
     }
 

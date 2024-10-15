@@ -780,10 +780,6 @@ public abstract class JobStoreSupport implements JobStore, Constants {
         try {
             conn = DBConnectionManager.getInstance().getConnection(
                     getDataSource());
-        } catch (SQLException sqle) {
-            throw new JobPersistenceException(
-                    "Failed to obtain DB connection from data source '"
-                    + getDataSource() + "': " + sqle, sqle);
         } catch (Throwable e) {
             throw new JobPersistenceException(
                     "Failed to obtain DB connection from data source '"
@@ -1117,10 +1113,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             } else {
                 getDelegate().insertJobDetail(conn, newJob);
             }
-        } catch (IOException e) {
-            throw new JobPersistenceException("Couldn't store job: "
-                    + e.getMessage(), e);
-        } catch (SQLException e) {
+        } catch (IOException | SQLException e) {
             throw new JobPersistenceException("Couldn't store job: "
                     + e.getMessage(), e);
         }
@@ -1456,10 +1449,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                     deleteJobAndChildren(conn, job.getKey());
                 }
             }
-        } catch (ClassNotFoundException e) {
-            throw new JobPersistenceException("Couldn't remove trigger: "
-                    + e.getMessage(), e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new JobPersistenceException("Couldn't remove trigger: "
                     + e.getMessage(), e);
         }
@@ -1504,10 +1494,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             storeTrigger(conn, newTrigger, job, false, STATE_WAITING, false, false);
 
             return removedTrigger;
-        } catch (ClassNotFoundException e) {
-            throw new JobPersistenceException("Couldn't remove trigger: "
-                    + e.getMessage(), e);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new JobPersistenceException("Couldn't remove trigger: "
                     + e.getMessage(), e);
         }
@@ -1702,10 +1689,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             throw new JobPersistenceException(
                     "Couldn't store calendar because the BLOB couldn't be serialized: "
                             + e.getMessage(), e);
-        } catch (ClassNotFoundException e) {
-            throw new JobPersistenceException("Couldn't store calendar: "
-                    + e.getMessage(), e);
-        }catch (SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             throw new JobPersistenceException("Couldn't store calendar: "
                     + e.getMessage(), e);
         }
@@ -2976,10 +2960,8 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                             try {
                                 TriggerFiredBundle bundle = triggerFired(conn, trigger);
                                 result = new TriggerFiredResult(bundle);
-                            } catch (JobPersistenceException jpe) {
+                            } catch (JobPersistenceException | RuntimeException jpe) {
                                 result = new TriggerFiredResult(jpe);
-                            } catch (RuntimeException re) {
-                                result = new TriggerFiredResult(re);
                             }
                             results.add(result);
                         }
@@ -3206,10 +3188,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                     
                     delegate.initialize(getLog(), tablePrefix, instanceName, instanceId, getClassLoadHelper(), canUseProperties(), getDriverDelegateInitString());
                     
-                } catch (InstantiationException e) {
-                    throw new NoSuchDelegateException("Couldn't create delegate: "
-                            + e.getMessage(), e);
-                } catch (IllegalAccessException e) {
+                } catch (InstantiationException | IllegalAccessException e) {
                     throw new NoSuchDelegateException("Couldn't create delegate: "
                             + e.getMessage(), e);
                 } catch (ClassNotFoundException e) {

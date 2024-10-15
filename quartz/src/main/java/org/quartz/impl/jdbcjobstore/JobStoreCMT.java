@@ -166,11 +166,6 @@ public class JobStoreCMT extends JobStoreSupport {
         try {
             conn = DBConnectionManager.getInstance().getConnection(
                     getNonManagedTXDataSource());
-        } catch (SQLException sqle) {
-            throw new JobPersistenceException(
-                "Failed to obtain DB connection from data source '"
-                        + getNonManagedTXDataSource() + "': "
-                        + sqle, sqle);
         } catch (Throwable e) {
             throw new JobPersistenceException(
                 "Failed to obtain DB connection from data source '"

@@ -193,12 +193,6 @@ public class PropertySettingJobFactory extends SimpleJobFactory {
                 }
 
                 setMeth.invoke(obj, new Object[]{parm});
-            } catch (NumberFormatException nfe) {
-                handleError(
-                        "The setter on Job class " + obj.getClass().getName() +
-                                " for property '" + name +
-                                "' expects a " + paramType +
-                                " but was given " + o.getClass().getName(), nfe);
             } catch (IllegalArgumentException e) {
                 handleError(
                         "The setter on Job class " + obj.getClass().getName() +

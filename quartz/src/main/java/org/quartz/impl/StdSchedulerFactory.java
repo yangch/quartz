@@ -1387,17 +1387,9 @@ public class StdSchedulerFactory implements SchedulerFactory {
             schedRep.bind(scheduler);
             return scheduler;
         }
-        catch(SchedulerException e) {
+        catch(SchedulerException | Error | RuntimeException e) {
             shutdownFromInstantiateException(tp, qs, tpInited, qsInited);
             throw e;
-        }
-        catch(RuntimeException re) {
-            shutdownFromInstantiateException(tp, qs, tpInited, qsInited);
-            throw re;
-        }
-        catch(Error re) {
-            shutdownFromInstantiateException(tp, qs, tpInited, qsInited);
-            throw re;
         }
     }
 

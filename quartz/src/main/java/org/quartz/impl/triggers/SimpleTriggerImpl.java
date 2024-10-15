@@ -432,11 +432,7 @@ public class SimpleTriggerImpl extends AbstractTrigger<SimpleTrigger> implements
             return false;
         }
 
-        if (misfireInstruction > MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT) {
-            return false;
-        }
-
-        return true;
+        return misfireInstruction <= MISFIRE_INSTRUCTION_RESCHEDULE_NEXT_WITH_EXISTING_COUNT;
     }
 
     /**

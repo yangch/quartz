@@ -645,7 +645,7 @@ public class DailyCalendar extends BaseCalendar {
         buffer.append(":");
         numberFormatter.setMinimumIntegerDigits(3);
         buffer.append(numberFormatter.format(rangeEndingMillis));
-        buffer.append("', inverted: " + invertTimeRange + "]");
+        buffer.append("', inverted: ").append(invertTimeRange).append("]");
         return buffer.toString();
     }
     

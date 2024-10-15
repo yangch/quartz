@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -373,11 +374,7 @@ public class XMLSchedulingDataProcessorPlugin
                 if (!file.exists()) {
                     URL url = classLoadHelper.getResource(getFileName());
                     if(url != null) {
-                        try {
-                            furl = URLDecoder.decode(url.getPath(), "UTF-8");
-                        } catch (UnsupportedEncodingException e) {
-                            furl = url.getPath();
-                        }
+                        furl = URLDecoder.decode(url.getPath(), StandardCharsets.UTF_8);
                         file = new File(furl); 
                         try {
                             f = url.openStream();

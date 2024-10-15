@@ -354,7 +354,7 @@ public class QuartzSchedulerThread extends Thread {
                             continue;
 
                         // set triggers to 'executing'
-                        List<TriggerFiredResult> bundles = new ArrayList<TriggerFiredResult>();
+                        List<TriggerFiredResult> bundles = new ArrayList<>();
 
                         boolean goAhead = true;
                         synchronized(sigLock) {

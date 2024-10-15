@@ -103,9 +103,9 @@ public class SimpleTriggerSupport {
     
     public static OperableTrigger newTrigger(CompositeData cData) throws ParseException {
         SimpleTriggerImpl result = new SimpleTriggerImpl();
-        result.setRepeatCount(((Integer) cData.get("repeatCount")).intValue());
-        result.setRepeatInterval(((Long) cData.get("repeatInterval")).longValue());
-        result.setTimesTriggered(((Integer) cData.get("timesTriggered")).intValue());
+        result.setRepeatCount((Integer) cData.get("repeatCount"));
+        result.setRepeatInterval((Long) cData.get("repeatInterval"));
+        result.setTimesTriggered((Integer) cData.get("timesTriggered"));
         TriggerSupport.initializeTrigger(result, cData);
         return result;
     }
@@ -113,13 +113,13 @@ public class SimpleTriggerSupport {
     public static OperableTrigger newTrigger(Map<String, Object> attrMap) throws ParseException {
         SimpleTriggerImpl result = new SimpleTriggerImpl();
         if(attrMap.containsKey("repeatCount")) {
-            result.setRepeatCount(((Integer) attrMap.get("repeatCount")).intValue());
+            result.setRepeatCount((Integer) attrMap.get("repeatCount"));
         }
         if(attrMap.containsKey("repeatInterval")) {
-            result.setRepeatInterval(((Long) attrMap.get("repeatInterval")).longValue());
+            result.setRepeatInterval((Long) attrMap.get("repeatInterval"));
         }
         if(attrMap.containsKey("timesTriggered")) {
-            result.setTimesTriggered(((Integer) attrMap.get("timesTriggered")).intValue());
+            result.setTimesTriggered((Integer) attrMap.get("timesTriggered"));
         }
         TriggerSupport.initializeTrigger(result, attrMap);
         return result;

@@ -122,7 +122,7 @@ public class PropertiesParser {
     public boolean getBooleanProperty(String name, boolean def) {
         String val = getStringProperty(name);
         
-        return (val == null) ? def : Boolean.valueOf(val).booleanValue();
+        return (val == null) ? def : Boolean.valueOf(val);
     }
 
     public byte getByteProperty(String name) throws NumberFormatException {
@@ -266,7 +266,7 @@ public class PropertiesParser {
                         
             int[] outInts = new int[ints.size()];
             for (int i = 0; i < ints.size(); i++) {
-                outInts[i] = ((Integer)ints.get(i)).intValue();
+                outInts[i] = (Integer) ints.get(i);
             }
             return outInts;
         } catch (Exception e) {

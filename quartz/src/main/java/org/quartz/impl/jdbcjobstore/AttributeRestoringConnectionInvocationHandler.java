@@ -65,10 +65,10 @@ public class AttributeRestoringConnectionInvocationHandler implements Invocation
         throws Throwable {
         switch (method.getName()) {
             case "setAutoCommit":
-                setAutoCommit(((Boolean) args[0]).booleanValue());
+                setAutoCommit((Boolean) args[0]);
                 break;
             case "setTransactionIsolation":
-                setTransactionIsolation(((Integer) args[0]).intValue());
+                setTransactionIsolation((Integer) args[0]);
                 break;
             case "close":
                 close();

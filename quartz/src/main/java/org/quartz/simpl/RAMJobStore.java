@@ -87,27 +87,27 @@ public class RAMJobStore implements JobStore {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    protected HashMap<JobKey, JobWrapper> jobsByKey = new HashMap<JobKey, JobWrapper>(1000);
+    protected final HashMap<JobKey, JobWrapper> jobsByKey = new HashMap<JobKey, JobWrapper>(1000);
 
-    protected HashMap<TriggerKey, TriggerWrapper> triggersByKey = new HashMap<TriggerKey, TriggerWrapper>(1000);
+    protected final HashMap<TriggerKey, TriggerWrapper> triggersByKey = new HashMap<TriggerKey, TriggerWrapper>(1000);
 
-    protected HashMap<String, HashMap<JobKey, JobWrapper>> jobsByGroup = new HashMap<String, HashMap<JobKey, JobWrapper>>(25);
+    protected final HashMap<String, HashMap<JobKey, JobWrapper>> jobsByGroup = new HashMap<String, HashMap<JobKey, JobWrapper>>(25);
 
-    protected HashMap<String, HashMap<TriggerKey, TriggerWrapper>> triggersByGroup = new HashMap<String, HashMap<TriggerKey, TriggerWrapper>>(25);
+    protected final HashMap<String, HashMap<TriggerKey, TriggerWrapper>> triggersByGroup = new HashMap<String, HashMap<TriggerKey, TriggerWrapper>>(25);
 
-    protected TreeSet<TriggerWrapper> timeTriggers = new TreeSet<TriggerWrapper>(new TriggerWrapperComparator());
+    protected final TreeSet<TriggerWrapper> timeTriggers = new TreeSet<TriggerWrapper>(new TriggerWrapperComparator());
 
-    protected HashMap<String, Calendar> calendarsByName = new HashMap<String, Calendar>(25);
+    protected final HashMap<String, Calendar> calendarsByName = new HashMap<String, Calendar>(25);
 
-    protected Map<JobKey, List<TriggerWrapper>> triggersByJob = new HashMap<JobKey, List<TriggerWrapper>>(1000);
+    protected final Map<JobKey, List<TriggerWrapper>> triggersByJob = new HashMap<JobKey, List<TriggerWrapper>>(1000);
 
     protected final Object lock = new Object();
 
-    protected HashSet<String> pausedTriggerGroups = new HashSet<String>();
+    protected final HashSet<String> pausedTriggerGroups = new HashSet<String>();
 
-    protected HashSet<String> pausedJobGroups = new HashSet<String>();
+    protected final HashSet<String> pausedJobGroups = new HashSet<String>();
 
-    protected HashSet<JobKey> blockedJobs = new HashSet<JobKey>();
+    protected final HashSet<JobKey> blockedJobs = new HashSet<JobKey>();
     
     protected long misfireThreshold = 5000l;
 
@@ -1767,7 +1767,7 @@ class TriggerWrapperComparator implements Comparator<TriggerWrapper>, java.io.Se
   
     private static final long serialVersionUID = 8809557142191514261L;
 
-    TriggerTimeComparator ttc = new TriggerTimeComparator();
+    final TriggerTimeComparator ttc = new TriggerTimeComparator();
     
     public int compare(TriggerWrapper trig1, TriggerWrapper trig2) {
         return ttc.compare(trig1.trigger, trig2.trigger);
@@ -1786,7 +1786,7 @@ class TriggerWrapperComparator implements Comparator<TriggerWrapper>, java.io.Se
 
 class JobWrapper {
 
-    public JobKey key;
+    public final JobKey key;
 
     public JobDetail jobDetail;
 

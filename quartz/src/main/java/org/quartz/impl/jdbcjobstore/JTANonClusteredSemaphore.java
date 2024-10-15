@@ -73,9 +73,9 @@ public class JTANonClusteredSemaphore implements Semaphore {
 
     public static final String DEFAULT_TRANSACTION_MANAGER_LOCATION = "java:TransactionManager";
 
-    ThreadLocal<HashSet<String>> lockOwners = new ThreadLocal<HashSet<String>>();
+    final ThreadLocal<HashSet<String>> lockOwners = new ThreadLocal<HashSet<String>>();
 
-    HashSet<String> locks = new HashSet<String>();
+    final HashSet<String> locks = new HashSet<String>();
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 

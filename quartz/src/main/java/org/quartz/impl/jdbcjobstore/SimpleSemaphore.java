@@ -41,9 +41,9 @@ public class SimpleSemaphore implements Semaphore {
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      */
 
-    ThreadLocal<HashSet<String>> lockOwners = new ThreadLocal<HashSet<String>>();
+    final ThreadLocal<HashSet<String>> lockOwners = new ThreadLocal<HashSet<String>>();
 
-    HashSet<String> locks = new HashSet<String>();
+    final HashSet<String> locks = new HashSet<String>();
 
     private final Logger log = LoggerFactory.getLogger(getClass());
 

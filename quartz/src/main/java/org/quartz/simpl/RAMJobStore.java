@@ -1021,9 +1021,7 @@ public class RAMJobStore implements JobStore {
         synchronized (lock) {
             List<TriggerWrapper> jobList = triggersByJob.get(jobKey);
             if(jobList != null) {
-                for(TriggerWrapper trigger : jobList) {
-                    trigList.add(trigger);
-                }
+                trigList.addAll(jobList);
             }
         }
 

@@ -958,7 +958,6 @@ public final class CronExpression implements Serializable, Cloneable {
 
     protected int skipWhiteSpace(int i, String s) {
         for (; i < s.length() && (s.charAt(i) == ' ' || s.charAt(i) == '\t'); i++) {
-            ;
         }
 
         return i;
@@ -966,7 +965,6 @@ public final class CronExpression implements Serializable, Cloneable {
 
     protected int findNextWhiteSpace(int i, String s) {
         for (; i < s.length() && (s.charAt(i) != ' ' || s.charAt(i) != '\t'); i++) {
-            ;
         }
 
         return i;

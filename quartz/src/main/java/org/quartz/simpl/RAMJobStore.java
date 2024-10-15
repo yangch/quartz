@@ -892,7 +892,7 @@ public class RAMJobStore implements JobStore {
             }
         }
 
-        return outList == null ? java.util.Collections.<JobKey>emptySet() : outList;
+        return outList == null ? java.util.Collections.emptySet() : outList;
     }
 
     /**
@@ -956,7 +956,7 @@ public class RAMJobStore implements JobStore {
             }
         }
 
-        return outList == null ? Collections.<TriggerKey>emptySet() : outList;
+        return outList == null ? Collections.emptySet() : outList;
     }
 
     /**

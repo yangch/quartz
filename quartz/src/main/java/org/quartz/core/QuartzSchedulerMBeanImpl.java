@@ -569,19 +569,19 @@ public class QuartzSchedulerMBeanImpl extends StandardMBean implements
     }
     
     public void pauseJobGroup(String jobGroup) throws Exception {
-        pauseJobs(GroupMatcher.<JobKey>groupEquals(jobGroup));
+        pauseJobs(GroupMatcher.groupEquals(jobGroup));
     }
 
     public void pauseJobsStartingWith(String jobGroupPrefix) throws Exception {
-        pauseJobs(GroupMatcher.<JobKey>groupStartsWith(jobGroupPrefix));
+        pauseJobs(GroupMatcher.groupStartsWith(jobGroupPrefix));
     }
 
     public void pauseJobsEndingWith(String jobGroupSuffix) throws Exception {
-        pauseJobs(GroupMatcher.<JobKey>groupEndsWith(jobGroupSuffix));
+        pauseJobs(GroupMatcher.groupEndsWith(jobGroupSuffix));
     }
 
     public void pauseJobsContaining(String jobGroupToken) throws Exception {
-        pauseJobs(GroupMatcher.<JobKey>groupContains(jobGroupToken));
+        pauseJobs(GroupMatcher.groupContains(jobGroupToken));
     }
 
     public void pauseJobsAll() throws Exception {
@@ -605,19 +605,19 @@ public class QuartzSchedulerMBeanImpl extends StandardMBean implements
     }
     
     public void pauseTriggerGroup(String triggerGroup) throws Exception {
-        pauseTriggers(GroupMatcher.<TriggerKey>groupEquals(triggerGroup));
+        pauseTriggers(GroupMatcher.groupEquals(triggerGroup));
     }
 
     public void pauseTriggersStartingWith(String triggerGroupPrefix) throws Exception {
-        pauseTriggers(GroupMatcher.<TriggerKey>groupStartsWith(triggerGroupPrefix));
+        pauseTriggers(GroupMatcher.groupStartsWith(triggerGroupPrefix));
     }
 
     public void pauseTriggersEndingWith(String triggerGroupSuffix) throws Exception {
-        pauseTriggers(GroupMatcher.<TriggerKey>groupEndsWith(triggerGroupSuffix));
+        pauseTriggers(GroupMatcher.groupEndsWith(triggerGroupSuffix));
     }
 
     public void pauseTriggersContaining(String triggerGroupToken) throws Exception {
-        pauseTriggers(GroupMatcher.<TriggerKey>groupContains(triggerGroupToken));
+        pauseTriggers(GroupMatcher.groupContains(triggerGroupToken));
     }
 
     public void pauseTriggersAll() throws Exception {
@@ -657,19 +657,19 @@ public class QuartzSchedulerMBeanImpl extends StandardMBean implements
     }
 
     public void resumeJobGroup(String jobGroup) throws Exception {
-        resumeJobs(GroupMatcher.<JobKey>groupEquals(jobGroup));
+        resumeJobs(GroupMatcher.groupEquals(jobGroup));
     }
 
     public void resumeJobsStartingWith(String jobGroupPrefix) throws Exception {
-        resumeJobs(GroupMatcher.<JobKey>groupStartsWith(jobGroupPrefix));
+        resumeJobs(GroupMatcher.groupStartsWith(jobGroupPrefix));
     }
 
     public void resumeJobsEndingWith(String jobGroupSuffix) throws Exception {
-        resumeJobs(GroupMatcher.<JobKey>groupEndsWith(jobGroupSuffix));
+        resumeJobs(GroupMatcher.groupEndsWith(jobGroupSuffix));
     }
 
     public void resumeJobsContaining(String jobGroupToken) throws Exception {
-        resumeJobs(GroupMatcher.<JobKey>groupContains(jobGroupToken));
+        resumeJobs(GroupMatcher.groupContains(jobGroupToken));
     }
 
     public void resumeJobsAll() throws Exception {
@@ -693,19 +693,19 @@ public class QuartzSchedulerMBeanImpl extends StandardMBean implements
     }
     
     public void resumeTriggerGroup(String triggerGroup) throws Exception {
-        resumeTriggers(GroupMatcher.<TriggerKey>groupEquals(triggerGroup));
+        resumeTriggers(GroupMatcher.groupEquals(triggerGroup));
     }
 
     public void resumeTriggersStartingWith(String triggerGroupPrefix) throws Exception {
-        resumeTriggers(GroupMatcher.<TriggerKey>groupStartsWith(triggerGroupPrefix));
+        resumeTriggers(GroupMatcher.groupStartsWith(triggerGroupPrefix));
     }
 
     public void resumeTriggersEndingWith(String triggerGroupSuffix) throws Exception {
-        resumeTriggers(GroupMatcher.<TriggerKey>groupEndsWith(triggerGroupSuffix));
+        resumeTriggers(GroupMatcher.groupEndsWith(triggerGroupSuffix));
     }
 
     public void resumeTriggersContaining(String triggerGroupToken) throws Exception {
-        resumeTriggers(GroupMatcher.<TriggerKey>groupContains(triggerGroupToken));
+        resumeTriggers(GroupMatcher.groupContains(triggerGroupToken));
     }
 
     public void resumeTriggersAll() throws Exception {

@@ -646,7 +646,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
 
         classLoadHelper = loadHelper;
         if(isThreadsInheritInitializersClassLoadContext()) {
-            log.info("JDBCJobStore threads will inherit ContextClassLoader of thread: " + Thread.currentThread().getName());
+            log.info("JDBCJobStore threads will inherit ContextClassLoader of thread: {}", Thread.currentThread().getName());
             initializersLoader = Thread.currentThread().getContextClassLoader();
         }
         
@@ -666,7 +666,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                 if(getDriverDelegateClass() != null && getDriverDelegateClass().equals(MSSQLDelegate.class.getName())) {
                     if(getSelectWithLockSQL() == null) {
                         String msSqlDflt = "SELECT * FROM {0}LOCKS WITH (UPDLOCK,ROWLOCK) WHERE " + COL_SCHEDULER_NAME + " = {1} AND LOCK_NAME = ?";
-                        getLog().info("Detected usage of MSSQLDelegate class - defaulting 'selectWithLockSQL' to '" + msSqlDflt + "'.");
+                        getLog().info("Detected usage of MSSQLDelegate class - defaulting 'selectWithLockSQL' to '{}'.", msSqlDflt);
                         setSelectWithLockSQL(msSqlDflt);
                     }
                 }
@@ -821,7 +821,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             try {
                 getLockHandler().releaseLock(lockName);
             } catch (LockException le) {
-                getLog().error("Error returning lock: " + le.getMessage(), le);
+                getLog().error("Error returning lock: {}", le.getMessage(), le);
             }
         }
     }
@@ -859,10 +859,8 @@ public abstract class JobStoreSupport implements JobStore, Constants {
 
             rows += getDelegate().updateTriggerStatesFromOtherStates(conn,
                         STATE_PAUSED, STATE_PAUSED_BLOCKED, STATE_PAUSED_BLOCKED);
-            
-            getLog().info(
-                    "Freed " + rows
-                            + " triggers from 'acquired' / 'blocked' state.");
+
+            getLog().info("Freed {} triggers from 'acquired' / 'blocked' state.", rows);
 
             // clean up misfired jobs
             recoverMisfiredJobs(conn, true);
@@ -871,10 +869,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             List<OperableTrigger> recoveringJobTriggers = getDelegate()
                     .selectTriggersForRecoveringJobs(conn);
             getLog()
-                    .info(
-                            "Recovering "
-                                    + recoveringJobTriggers.size()
-                                    + " jobs that were in-progress at the time of the last shut-down.");
+                    .info("Recovering {} jobs that were in-progress at the time of the last shut-down.", recoveringJobTriggers.size());
 
             for (OperableTrigger recoveringJobTrigger: recoveringJobTriggers) {
                 if (jobExists(conn, recoveringJobTrigger.getJobKey())) {
@@ -890,12 +885,11 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             for(TriggerKey ct: cts) {
                 removeTrigger(conn, ct);
             }
-            getLog().info(
-                "Removed " + cts.size() + " 'complete' triggers.");
+            getLog().info("Removed {} 'complete' triggers.", cts.size());
             
             // clean up any fired trigger entries
             int n = getDelegate().deleteFiredTriggers(conn);
-            getLog().info("Removed " + n + " stale fired job entries.");
+            getLog().info("Removed {} stale fired job entries.", n);
         } catch (JobPersistenceException e) {
             throw e;
         } catch (Exception e) {
@@ -962,14 +956,9 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                 maxMisfiresToHandleAtATime, misfiredTriggers);
 
         if (hasMoreMisfiredTriggers) {
-            getLog().info(
-                "Handling the first " + misfiredTriggers.size() +
-                " triggers that missed their scheduled fire-time.  " +
-                "More misfired triggers remain to be processed.");
+            getLog().info("Handling the first {} triggers that missed their scheduled fire-time.  More misfired triggers remain to be processed.", misfiredTriggers.size());
         } else if (!misfiredTriggers.isEmpty()) {
-            getLog().info(
-                "Handling " + misfiredTriggers.size() + 
-                " trigger(s) that missed their scheduled fire-time.");
+            getLog().info("Handling {} trigger(s) that missed their scheduled fire-time.", misfiredTriggers.size());
         } else {
             getLog().debug(
                 "Found 0 triggers that missed their scheduled fire-time.");
@@ -1614,7 +1603,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
 
             getDelegate().updateTriggerStateFromOtherState(conn, triggerKey, newState, STATE_ERROR);
 
-            getLog().info("Trigger " + triggerKey + " reset from ERROR state to: " + newState);
+            getLog().info("Trigger {} reset from ERROR state to: {}", triggerKey, newState);
         } catch (SQLException e) {
             throw new JobPersistenceException(
                     "Couldn't reset from error state of trigger (" + triggerKey + "): " + e.getMessage(), e);
@@ -3118,7 +3107,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                         STATE_COMPLETE);
                 signalSchedulingChangeOnTxCompletion(0L);
             } else if (triggerInstCode == CompletedExecutionInstruction.SET_TRIGGER_ERROR) {
-                getLog().info("Trigger " + trigger.getKey() + " set to ERROR state.");
+                getLog().info("Trigger {} set to ERROR state.", trigger.getKey());
                 getDelegate().updateTriggerState(conn, trigger.getKey(),
                         STATE_ERROR);
                 signalSchedulingChangeOnTxCompletion(0L);
@@ -3127,8 +3116,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                         trigger.getJobKey(), STATE_COMPLETE);
                 signalSchedulingChangeOnTxCompletion(0L);
             } else if (triggerInstCode == CompletedExecutionInstruction.SET_ALL_JOB_TRIGGERS_ERROR) {
-                getLog().info("All triggers of Job " + 
-                        trigger.getKey() + " set to ERROR state.");
+                getLog().info("All triggers of Job {} set to ERROR state.", trigger.getKey());
                 getDelegate().updateTriggerStatesForJob(conn,
                         trigger.getJobKey(), STATE_ERROR);
                 signalSchedulingChangeOnTxCompletion(0L);
@@ -3379,10 +3367,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             // Someone must have done recovery for us.
             if ((!foundThisScheduler) && (!firstCheckIn)) {
                 // FUTURE_TODO: revisit when handle self-failed-out impl'ed (see FUTURE_TODO in clusterCheckIn() below)
-                getLog().warn(
-                    "This scheduler instance (" + getInstanceId() + ") is still " + 
-                    "active but was recovered by another instance in the cluster.  " +
-                    "This may cause inconsistent behavior.");
+                getLog().warn("This scheduler instance ({}) is still active but was recovered by another instance in the cluster.  This may cause inconsistent behavior.", getInstanceId());
             }
             
             return failedInstances;
@@ -3419,9 +3404,8 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                 orphanedInstance.setSchedulerInstanceId(inst);
                 
                 orphanedInstances.add(orphanedInstance);
-                
-                getLog().warn(
-                    "Found orphaned fired triggers for instance: " + orphanedInstance.getSchedulerInstanceId());
+
+                getLog().warn("Found orphaned fired triggers for instance: {}", orphanedInstance.getSchedulerInstanceId());
             }
         }
         
@@ -3471,10 +3455,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                             + " failed or restarted instances.");
             try {
                 for (SchedulerStateRecord rec : failedInstances) {
-                    getLog().info(
-                            "ClusterManager: Scanning for instance \""
-                                    + rec.getSchedulerInstanceId()
-                                    + "\"'s failed in-progress jobs.");
+                    getLog().info("ClusterManager: Scanning for instance \"{}\"'s failed in-progress jobs.", rec.getSchedulerInstanceId());
 
                     List<FiredTriggerRecord> firedTriggerRecs = getDelegate()
                             .selectInstancesFiredTriggerRecords(conn,
@@ -3541,10 +3522,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                                 recoveredCount++;
                             } else {
                                 getLog()
-                                        .warn(
-                                                "ClusterManager: failed job '"
-                                                        + jKey
-                                                        + "' no longer exists, cannot schedule recovery.");
+                                        .warn("ClusterManager: failed job '{}' no longer exists, cannot schedule recovery.", jKey);
                                 otherCount++;
                             }
                         } else {
@@ -3697,8 +3675,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             try {
                 conn.rollback();
             } catch (SQLException e) {
-                getLog().error(
-                    "Couldn't rollback jdbc connection. "+e.getMessage(), e);
+                getLog().error("Couldn't rollback jdbc connection. {}", e.getMessage(), e);
             }
         }
     }
@@ -3793,7 +3770,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                     schedSignaler.notifySchedulerListenersError("An error occurred while " + txCallback, jpe);
                 }
             } catch (RuntimeException e) {
-                getLog().error("retryExecuteInNonManagedTXLock: RuntimeException " + e.getMessage(), e);
+                getLog().error("retryExecuteInNonManagedTXLock: RuntimeException {}", e.getMessage(), e);
             }
             try {
                 Thread.sleep(getDbRetryInterval()); // retry every N seconds (the db connection must be failed)
@@ -3909,9 +3886,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                 getLog().debug("ClusterManager: Check-in complete.");
             } catch (Exception e) {
                 if(numFails % 4 == 0) {
-                    getLog().error(
-                        "ClusterManager: Error managing cluster: "
-                                + e.getMessage(), e);
+                    getLog().error("ClusterManager: Error managing cluster: {}", e.getMessage(), e);
                 }
                 numFails++;
             }
@@ -3985,9 +3960,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                 return res;
             } catch (Exception e) {
                 if(numFails % 4 == 0) {
-                    getLog().error(
-                        "MisfireHandler: Error handling misfires: "
-                                + e.getMessage(), e);
+                    getLog().error("MisfireHandler: Error handling misfires: {}", e.getMessage(), e);
                 }
                 numFails++;
             }

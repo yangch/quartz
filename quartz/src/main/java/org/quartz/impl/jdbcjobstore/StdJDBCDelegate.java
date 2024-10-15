@@ -181,7 +181,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
     }
     
     public void addTriggerPersistenceDelegate(TriggerPersistenceDelegate delegate) {
-        logger.debug("Adding TriggerPersistenceDelegate of type: " + delegate.getClass().getCanonicalName());
+        logger.debug("Adding TriggerPersistenceDelegate of type: {}", delegate.getClass().getCanonicalName());
         delegate.initialize(tablePrefix, schedName);
         this.triggerPersistenceDelegates.add(delegate);
     }
@@ -719,7 +719,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
 
         try {
             if (logger.isDebugEnabled()) {
-                logger.debug("Deleting job: " + jobKey);
+                logger.debug("Deleting job: {}", jobKey);
             }
             ps = conn.prepareStatement(rtp(DELETE_JOB_DETAIL));
             ps.setString(1, jobKey.getName());
@@ -1661,7 +1661,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
                 return job;
             } else {
                 if (logger.isDebugEnabled()) {
-                    logger.debug("No job for trigger '" + triggerKey + "'.");
+                    logger.debug("No job for trigger '{}'.", triggerKey);
                 }
                 return null;
             }
@@ -2350,8 +2350,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
                 cal = (Calendar) getObjectFromBlob(rs, COL_CALENDAR);
             }
             if (null == cal) {
-                logger.warn("Couldn't find calendar with name '" + calendarName
-                        + "'.");
+                logger.warn("Couldn't find calendar with name '{}'.", calendarName);
             }
             return cal;
         } finally {

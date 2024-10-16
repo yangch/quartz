@@ -879,12 +879,10 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
             return null;
         }
         Properties properties = new Properties();
-        if (is != null) {
-            try {
-                properties.load(is);
-            } finally {
-                is.close();
-            }
+        try {
+            properties.load(is);
+        } finally {
+            is.close();
         }
         map = convertFromProperty(properties);
         return map;

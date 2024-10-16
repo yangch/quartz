@@ -672,7 +672,7 @@ public class RAMJobStore implements JobStore {
 
             TriggerWrapper tw = triggersByKey.get(triggerKey);
             // does the trigger exist?
-            if (tw == null || tw.trigger == null) {
+            if (tw == null) {
                 return;
             }
             // is the trigger in error state?
@@ -1043,7 +1043,7 @@ public class RAMJobStore implements JobStore {
             TriggerWrapper tw = triggersByKey.get(triggerKey);
     
             // does the trigger exist?
-            if (tw == null || tw.trigger == null) {
+            if (tw == null) {
                 return;
             }
     
@@ -1190,7 +1190,7 @@ public class RAMJobStore implements JobStore {
             TriggerWrapper tw = triggersByKey.get(triggerKey);
     
             // does the trigger exist?
-            if (tw == null || tw.trigger == null) {
+            if (tw == null) {
                 return;
             }
     
@@ -1527,7 +1527,7 @@ public class RAMJobStore implements JobStore {
             for (OperableTrigger trigger : firedTriggers) {
                 TriggerWrapper tw = triggersByKey.get(trigger.getKey());
                 // was the trigger deleted since being acquired?
-                if (tw == null || tw.trigger == null) {
+                if (tw == null) {
                     continue;
                 }
                 // was the trigger completed, paused, blocked, etc. since being acquired?

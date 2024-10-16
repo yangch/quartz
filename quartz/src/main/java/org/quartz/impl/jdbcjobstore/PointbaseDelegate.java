@@ -409,7 +409,7 @@ public class PointbaseDelegate extends StdJDBCDelegate {
 
         InputStream binaryInput = new ByteArrayInputStream(binaryData);
 
-        if (null != binaryInput && binaryInput.available() != 0) {
+        if (binaryInput.available() != 0) {
             try (ObjectInputStream in = new ObjectInputStream(binaryInput)) {
                 obj = in.readObject();
             }

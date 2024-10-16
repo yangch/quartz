@@ -1707,9 +1707,7 @@ public class RAMJobStore implements JobStore {
      * @see org.quartz.spi.JobStore#getPausedTriggerGroups()
      */
     public Set<String> getPausedTriggerGroups() throws JobPersistenceException {
-        HashSet<String> set = new HashSet<>();
-        
-        set.addAll(pausedTriggerGroups);
+        HashSet<String> set = new HashSet<>(pausedTriggerGroups);
         
         return set;
     }

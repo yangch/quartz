@@ -3,7 +3,6 @@ package org.quartz.core.jmx;
 import static javax.management.openmbean.SimpleType.STRING;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 
 import javax.management.openmbean.CompositeData;

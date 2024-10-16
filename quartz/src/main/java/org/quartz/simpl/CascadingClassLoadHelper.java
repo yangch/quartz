@@ -18,7 +18,6 @@
 
 package org.quartz.simpl;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.net.URL;
 import java.io.InputStream;

@@ -1428,8 +1428,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
 
     protected Scheduler instantiate(QuartzSchedulerResources rsrcs, QuartzScheduler qs) {
 
-        Scheduler scheduler = new StdScheduler(qs);
-        return scheduler;
+        return new StdScheduler(qs);
     }
 
 

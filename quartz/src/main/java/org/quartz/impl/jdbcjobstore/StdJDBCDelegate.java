@@ -2120,9 +2120,8 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
         try {
             ps = conn.prepareStatement(rtp(INSERT_PAUSED_TRIGGER_GROUP));
             ps.setString(1, groupName);
-            int rows = ps.executeUpdate();
 
-            return rows;
+            return ps.executeUpdate();
         } finally {
             closeStatement(ps);
         }
@@ -2135,9 +2134,8 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
         try {
             ps = conn.prepareStatement(rtp(DELETE_PAUSED_TRIGGER_GROUP));
             ps.setString(1, groupName);
-            int rows = ps.executeUpdate();
 
-            return rows;
+            return ps.executeUpdate();
         } finally {
             closeStatement(ps);
         }
@@ -2150,9 +2148,8 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
         try {
             ps = conn.prepareStatement(rtp(DELETE_PAUSED_TRIGGER_GROUP));
             ps.setString(1, toSqlLikeClause(matcher));
-            int rows = ps.executeUpdate();
 
-            return rows;
+            return ps.executeUpdate();
         } finally {
             closeStatement(ps);
         }
@@ -2164,9 +2161,8 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
 
         try {
             ps = conn.prepareStatement(rtp(DELETE_PAUSED_TRIGGER_GROUPS));
-            int rows = ps.executeUpdate();
 
-            return rows;
+            return ps.executeUpdate();
         } finally {
             closeStatement(ps);
         }
@@ -3076,11 +3072,10 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
      */
     protected Object getKeyOfNonSerializableValue(Map<?, ?> data) {
         for (Map.Entry<?, ?> value : data.entrySet()) {
-            Map.Entry<?, ?> entry = (Map.Entry<?, ?>) value;
 
-            try (ByteArrayOutputStream baos = serializeObject(entry.getValue())) {
+            try (ByteArrayOutputStream baos = serializeObject(((Map.Entry<?, ?>) value).getValue())) {
             } catch (IOException e) {
-                return entry.getKey();
+                return ((Map.Entry<?, ?>) value).getKey();
             }
         }
         
@@ -3117,10 +3112,9 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
         Properties properties = new Properties();
 
         for (Map.Entry<?, ?> value : data.entrySet()) {
-            Map.Entry<?, ?> entry = (Map.Entry<?, ?>) value;
 
-            Object key = entry.getKey();
-            Object val = (entry.getValue() == null) ? "" : entry.getValue();
+            Object key = ((Map.Entry<?, ?>) value).getKey();
+            Object val = (((Map.Entry<?, ?>) value).getValue() == null) ? "" : ((Map.Entry<?, ?>) value).getValue();
 
             if (!(key instanceof String)) {
                 throw new IOException("JobDataMap keys/values must be Strings "
@@ -3202,8 +3196,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
         if (canUseProperties()) {
             Blob blobLocator = rs.getBlob(colName);
             if (blobLocator != null) {
-                InputStream binaryInput = blobLocator.getBinaryStream();
-                return binaryInput;
+                return blobLocator.getBinaryStream();
             } else {
                 return null;
             }

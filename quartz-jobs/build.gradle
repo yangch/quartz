@@ -29,7 +29,7 @@ java {
 }
 
 test {
-    maxParallelForks 10
+    maxParallelForks 1
     forkEvery 1
 }
 

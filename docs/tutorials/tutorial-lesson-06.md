@@ -211,7 +211,7 @@ When building CronTriggers, you specify the misfire instruction as part of the s
   trigger = newTrigger()
     .withIdentity("trigger3", "group1")
     .withSchedule(cronSchedule("0 0/2 8-17 * * ?")
-        ..withMisfireHandlingInstructionFireAndProceed())
+        .withMisfireHandlingInstructionFireAndProceed())
     .forJob("myJob", "group1")
     .build();
 </code></pre>

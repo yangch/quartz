@@ -2485,7 +2485,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
             if (rs.next()) {
                 return rs.getLong(ALIAS_COL_NEXT_FIRE_TIME);
             } else {
-                return 0l;
+                return 0L;
             }
         } finally {
             closeResultSet(rs);

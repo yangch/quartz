@@ -105,7 +105,7 @@ public class RAMJobStore implements JobStore {
 
     protected final HashSet<JobKey> blockedJobs = new HashSet<>();
     
-    protected long misfireThreshold = 5000l;
+    protected long misfireThreshold = 5000L;
 
     protected SchedulerSignaler signaler;
 

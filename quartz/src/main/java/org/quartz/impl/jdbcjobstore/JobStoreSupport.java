@@ -3978,11 +3978,11 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                 }
 
                 if (!shutdown) {
-                    long timeToSleep = 50l;  // At least a short pause to help balance threads
+                    long timeToSleep = 50L;  // At least a short pause to help balance threads
                     if (!recoverMisfiredJobsResult.hasMoreMisfiredTriggers()) {
                         timeToSleep = getMisfireThreshold() - (System.currentTimeMillis() - sTime);
                         if (timeToSleep <= 0) {
-                            timeToSleep = 50l;
+                            timeToSleep = 50L;
                         }
 
                         if(numFails > 0) {

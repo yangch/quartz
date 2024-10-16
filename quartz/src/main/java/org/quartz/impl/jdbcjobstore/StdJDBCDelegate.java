@@ -157,7 +157,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
                 for(String trigDelClassName: trigDelegates) {
                     try {
                         Class<?> trigDelClass = classLoadHelper.loadClass(trigDelClassName);
-                        addTriggerPersistenceDelegate((TriggerPersistenceDelegate) trigDelClass.newInstance());
+                        addTriggerPersistenceDelegate((TriggerPersistenceDelegate) trigDelClass.getDeclaredConstructor().newInstance());
                     } catch (Exception e) {
                         throw new NoSuchDelegateException("Error instantiating TriggerPersistenceDelegate of type: " + trigDelClassName, e);
                     } 
@@ -607,7 +607,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
 
         PreparedStatement ps = null;
 
-        int insertResult = 0;
+        int insertResult;
 
         try {
             ps = conn.prepareStatement(rtp(INSERT_JOB_DETAIL));
@@ -648,7 +648,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
 
         PreparedStatement ps = null;
 
-        int insertResult = 0;
+        int insertResult;
 
         try {
             ps = conn.prepareStatement(rtp(UPDATE_JOB_DETAIL));
@@ -849,7 +849,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
                 job.setDurability(getBoolean(rs, COL_IS_DURABLE));
                 job.setRequestsRecovery(getBoolean(rs, COL_REQUESTS_RECOVERY));
 
-                Map<?, ?> map = null;
+                Map<?, ?> map;
                 if (canUseProperties()) {
                     map = getMapFromProperties(rs);
                 } else {
@@ -871,20 +871,16 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
     /**
      * build Map from java.util.Properties encoding.
      */
-    private Map<?, ?> getMapFromProperties(ResultSet rs)
-        throws ClassNotFoundException, IOException, SQLException {
+    private Map<?, ?> getMapFromProperties(ResultSet rs) throws ClassNotFoundException, IOException, SQLException {
         Map<?, ?> map;
-        InputStream is = (InputStream) getJobDataFromBlob(rs, COL_JOB_DATAMAP);
-        if(is == null) {
-            return null;
-        }
-        Properties properties = new Properties();
-        try {
+        try (InputStream is = (InputStream) getJobDataFromBlob(rs, COL_JOB_DATAMAP)) {
+            if (is == null) {
+                return null;
+            }
+            Properties properties = new Properties();
             properties.load(is);
-        } finally {
-            is.close();
+            map = convertFromProperty(properties);
         }
-        map = convertFromProperty(properties);
         return map;
     }
 
@@ -1044,7 +1040,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
         
         PreparedStatement ps = null;
 
-        int insertResult = 0;
+        int insertResult;
 
         try {
             ps = conn.prepareStatement(rtp(INSERT_TRIGGER));
@@ -1112,7 +1108,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
     public int insertBlobTrigger(Connection conn, OperableTrigger trigger)
         throws SQLException, IOException {
         PreparedStatement ps = null;
-        ByteArrayOutputStream os = null;
+        ByteArrayOutputStream os;
 
         try {
             // update the blob
@@ -1160,7 +1156,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
                 
         PreparedStatement ps = null;
 
-        int insertResult = 0;
+        int insertResult;
 
 
         try {
@@ -1758,7 +1754,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
                 int misFireInstr = rs.getInt(COL_MISFIRE_INSTRUCTION);
                 int priority = rs.getInt(COL_PRIORITY);
 
-                Map<?, ?> map = null;
+                Map<?, ?> map;
                 if (canUseProperties()) {
                     map = getMapFromProperties(rs);
                 } else {
@@ -1799,7 +1795,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
                     if(tDel == null)
                         throw new JobPersistenceException("No TriggerPersistenceDelegate for trigger discriminator type: " + triggerType);
 
-                    TriggerPropertyBundle triggerProps = null;
+                    TriggerPropertyBundle triggerProps;
                     try {
                         triggerProps = tDel.loadExtendedTriggerProperties(conn, triggerKey);
                     } catch (IllegalStateException isex) {
@@ -1889,7 +1885,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
 
             if (rs.next()) {
 
-                Map<?, ?> map = null;
+                Map<?, ?> map;
                 if (canUseProperties()) { 
                     map = getMapFromProperties(rs);
                 } else {
@@ -1926,7 +1922,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
         ResultSet rs = null;
 
         try {
-            String state = null;
+            String state;
 
             ps = conn.prepareStatement(rtp(SELECT_TRIGGER_STATE));
             ps.setString(1, triggerKey.getName());
@@ -3071,9 +3067,9 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
     protected Object getKeyOfNonSerializableValue(Map<?, ?> data) {
         for (Map.Entry<?, ?> value : data.entrySet()) {
 
-            try (ByteArrayOutputStream baos = serializeObject(((Map.Entry<?, ?>) value).getValue())) {
+            try (ByteArrayOutputStream baos = serializeObject(value.getValue())) {
             } catch (IOException e) {
-                return ((Map.Entry<?, ?>) value).getKey();
+                return value.getKey();
             }
         }
         
@@ -3099,7 +3095,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
     /**
      * convert the JobDataMap into a list of properties
      */
-    protected Map<?, ?> convertFromProperty(Properties properties) throws IOException {
+    protected Map<?, ?> convertFromProperty(Properties properties) {
         return new HashMap<>(properties);
     }
 
@@ -3111,8 +3107,8 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
 
         for (Map.Entry<?, ?> value : data.entrySet()) {
 
-            Object key = ((Map.Entry<?, ?>) value).getKey();
-            Object val = (((Map.Entry<?, ?>) value).getValue() == null) ? "" : ((Map.Entry<?, ?>) value).getValue();
+            Object key = value.getKey();
+            Object val = (value.getValue() == null) ? "" : value.getValue();
 
             if (!(key instanceof String)) {
                 throw new IOException("JobDataMap keys/values must be Strings "

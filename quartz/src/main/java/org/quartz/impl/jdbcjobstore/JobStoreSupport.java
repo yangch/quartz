@@ -221,7 +221,7 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             useProp = "false";
         }
 
-        this.useProperties = Boolean.valueOf(useProp);
+        this.useProperties = Boolean.parseBoolean(useProp);
     }
 
     /**

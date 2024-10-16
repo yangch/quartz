@@ -171,7 +171,7 @@ public class PropertySettingJobFactory extends SimpleJobFactory {
                         if (o instanceof String) {
                             String str = (String) o;
                             if (str.length() == 1) {
-                                parm = Character.valueOf(str.charAt(0));
+                                parm = str.charAt(0);
                             }
                         } else if (o instanceof Character) {
                             parm = o;

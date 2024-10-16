@@ -280,11 +280,7 @@ public class RAMJobStore implements JobStore {
 
             if (!repl) {
                 // get job group
-                HashMap<JobKey, JobWrapper> grpMap = jobsByGroup.get(newJob.getKey().getGroup());
-                if (grpMap == null) {
-                    grpMap = new HashMap<>(100);
-                    jobsByGroup.put(newJob.getKey().getGroup(), grpMap);
-                }
+                HashMap<JobKey, JobWrapper> grpMap = jobsByGroup.computeIfAbsent(newJob.getKey().getGroup(), k -> new HashMap<>(100));
                 // add to jobs by group
                 grpMap.put(newJob.getKey(), jw);
                 // add to jobs by FQN map
@@ -422,19 +418,11 @@ public class RAMJobStore implements JobStore {
             }
 
             // add to triggers by job
-            List<TriggerWrapper> jobList = triggersByJob.get(tw.jobKey);
-            if(jobList == null) {
-                jobList = new ArrayList<>(1);
-                triggersByJob.put(tw.jobKey, jobList);
-            }
+            List<TriggerWrapper> jobList = triggersByJob.computeIfAbsent(tw.jobKey, k -> new ArrayList<>(1));
             jobList.add(tw);
             
             // add to triggers by group
-            HashMap<TriggerKey, TriggerWrapper> grpMap = triggersByGroup.get(newTrigger.getKey().getGroup());
-            if (grpMap == null) {
-                grpMap = new HashMap<>(100);
-                triggersByGroup.put(newTrigger.getKey().getGroup(), grpMap);
-            }
+            HashMap<TriggerKey, TriggerWrapper> grpMap = triggersByGroup.computeIfAbsent(newTrigger.getKey().getGroup(), k -> new HashMap<>(100));
             grpMap.put(newTrigger.getKey(), tw);
             // add to triggers by FQN map
             triggersByKey.put(tw.key, tw);

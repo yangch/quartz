@@ -104,10 +104,7 @@ public class AnnualCalendar extends BaseCalendar implements Calendar,
             dataSorted = true;
         }
 
-        Iterator<java.util.Calendar> iter = excludeDays.iterator();
-        while (iter.hasNext()) {
-            java.util.Calendar cl = (java.util.Calendar) iter.next();
-
+        for (java.util.Calendar cl : excludeDays) {
             // remember, the list is sorted
             if (dmonth < cl.get(java.util.Calendar.MONTH)) {
                 return false;
@@ -190,10 +187,7 @@ public class AnnualCalendar extends BaseCalendar implements Calendar,
         
         // Since there is no guarantee that the given day is in the arraylist with the exact same year
         // search for the object based on month and day of month in the list and remove it
-        Iterator<java.util.Calendar> iter = excludeDays.iterator();
-        while (iter.hasNext()) {
-            java.util.Calendar cl = (java.util.Calendar) iter.next();
-
+        for (java.util.Calendar cl : excludeDays) {
             if (dmonth != cl.get(java.util.Calendar.MONTH)) {
                 continue;
             }

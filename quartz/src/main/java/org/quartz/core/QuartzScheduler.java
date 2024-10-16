@@ -2340,17 +2340,13 @@ J     *
     }
     
     private void shutdownPlugins() {
-        java.util.Iterator<SchedulerPlugin> itr = resources.getSchedulerPlugins().iterator();
-        while (itr.hasNext()) {
-            SchedulerPlugin plugin = itr.next();
+        for (SchedulerPlugin plugin : resources.getSchedulerPlugins()) {
             plugin.shutdown();
         }
     }
 
     private void startPlugins() {
-        java.util.Iterator<SchedulerPlugin> itr = resources.getSchedulerPlugins().iterator();
-        while (itr.hasNext()) {
-            SchedulerPlugin plugin = itr.next();
+        for (SchedulerPlugin plugin : resources.getSchedulerPlugins()) {
             plugin.start();
         }
     }

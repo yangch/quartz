@@ -42,8 +42,8 @@ Wednesday at 12:00:00 pm".
 Individual sub-expressions can contain ranges and/or lists. For example, the day of week field in the previous
 (which reads "WED") example could be replaced with "MON-FRI", "MON,WED,FRI", or even "MON-WED,SAT".
 
-Wild-cards (the '*' character) can be used to say "every" possible value of this field. Therefore the '*'
-character in the "Month" field of the previous example simply means "every month". A '*' in the Day-Of-Week field would
+Wild-cards (the '\*' character) can be used to say "every" possible value of this field. Therefore the '\*'
+character in the "Month" field of the previous example simply means "every month". A '\*' in the Day-Of-Week field would
 therefore obviously mean "every day of the week".
 
 All of the fields have a set of valid values that can be specified. These values should be fairly obvious - such

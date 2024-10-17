@@ -26,6 +26,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -214,7 +215,10 @@ public class XMLSchedulingDataProcessorPlugin
                     getScheduler().getContext().put(JOB_INITIALIZATION_PLUGIN_NAME + '_' + getName(), this);
                 }
 
-                for (JobFile jobFile : jobFiles.values()) {
+                Iterator<JobFile> iterator = jobFiles.values().iterator();
+                while (iterator.hasNext()) {
+                    JobFile jobFile = iterator.next();
+
                     if (scanInterval > 0) {
                         String jobTriggerName = buildJobTriggerName(jobFile.getFileBasename());
                         TriggerKey tKey = new TriggerKey(jobTriggerName, JOB_INITIALIZATION_PLUGIN_NAME);
@@ -223,12 +227,12 @@ public class XMLSchedulingDataProcessorPlugin
                         getScheduler().unscheduleJob(tKey);
 
                         JobDetail job = newJob().withIdentity(jobTriggerName, JOB_INITIALIZATION_PLUGIN_NAME).ofType(FileScanJob.class)
-                                .usingJobData(FileScanJob.FILE_NAME, jobFile.getFileName())
-                                .usingJobData(FileScanJob.FILE_SCAN_LISTENER_NAME, JOB_INITIALIZATION_PLUGIN_NAME + '_' + getName())
-                                .build();
+                            .usingJobData(FileScanJob.FILE_NAME, jobFile.getFileName())
+                            .usingJobData(FileScanJob.FILE_SCAN_LISTENER_NAME, JOB_INITIALIZATION_PLUGIN_NAME + '_' + getName())
+                            .build();
 
                         SimpleTrigger trig = newTrigger().withIdentity(tKey).withSchedule(
-                                        simpleSchedule().repeatForever().withIntervalInMilliseconds(scanInterval))
+                                simpleSchedule().repeatForever().withIntervalInMilliseconds(scanInterval))
                                 .forJob(job)
                                 .build();
 

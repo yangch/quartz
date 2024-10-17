@@ -1246,8 +1246,12 @@ public abstract class JobStoreSupport implements JobStore, Constants {
     public boolean removeJob(final JobKey jobKey) throws JobPersistenceException {
         return (Boolean) executeInLock(
                 LOCK_TRIGGER_ACCESS,
-                (TransactionCallback) conn -> removeJob(conn, jobKey) ?
-                        Boolean.TRUE : Boolean.FALSE);
+                new TransactionCallback() {
+                    public Object execute(Connection conn) throws JobPersistenceException {
+                        return removeJob(conn, jobKey) ?
+                                Boolean.TRUE : Boolean.FALSE;
+                    }
+                });
     }
     
     protected boolean removeJob(Connection conn, final JobKey jobKey)
@@ -1270,29 +1274,33 @@ public abstract class JobStoreSupport implements JobStore, Constants {
 
         return (Boolean) executeInLock(
                 LOCK_TRIGGER_ACCESS,
-                (TransactionCallback) conn -> {
-                    boolean allFound = true;
+                new TransactionCallback() {
+                    public Object execute(Connection conn) throws JobPersistenceException {
+                        boolean allFound = true;
 
-                    // FUTURE_TODO: make this more efficient with a true bulk operation...
-                    for (JobKey jobKey : jobKeys)
-                        allFound = removeJob(conn, jobKey) && allFound;
+                        // FUTURE_TODO: make this more efficient with a true bulk operation...
+                        for (JobKey jobKey : jobKeys)
+                            allFound = removeJob(conn, jobKey) && allFound;
 
-                    return allFound ? Boolean.TRUE : Boolean.FALSE;
+                        return allFound ? Boolean.TRUE : Boolean.FALSE;
+                    }
                 });
     }
-        
+
     public boolean removeTriggers(final List<TriggerKey> triggerKeys)
             throws JobPersistenceException {
         return (Boolean) executeInLock(
                 LOCK_TRIGGER_ACCESS,
-                (TransactionCallback) conn -> {
-                    boolean allFound = true;
+                new TransactionCallback() {
+                    public Object execute(Connection conn) throws JobPersistenceException {
+                        boolean allFound = true;
 
-                    // FUTURE_TODO: make this more efficient with a true bulk operation...
-                    for (TriggerKey triggerKey : triggerKeys)
-                        allFound = removeTrigger(conn, triggerKey) && allFound;
+                        // FUTURE_TODO: make this more efficient with a true bulk operation...
+                        for (TriggerKey triggerKey : triggerKeys)
+                            allFound = removeTrigger(conn, triggerKey) && allFound;
 
-                    return allFound ? Boolean.TRUE : Boolean.FALSE;
+                        return allFound ? Boolean.TRUE : Boolean.FALSE;
+                    }
                 });
     }
         
@@ -1398,8 +1406,12 @@ public abstract class JobStoreSupport implements JobStore, Constants {
     public boolean removeTrigger(final TriggerKey triggerKey) throws JobPersistenceException {
         return (Boolean) executeInLock(
                 LOCK_TRIGGER_ACCESS,
-                (TransactionCallback) conn -> removeTrigger(conn, triggerKey) ?
-                        Boolean.TRUE : Boolean.FALSE);
+                new TransactionCallback() {
+                    public Object execute(Connection conn) throws JobPersistenceException {
+                        return removeTrigger(conn, triggerKey) ?
+                                Boolean.TRUE : Boolean.FALSE;
+                    }
+                });
     }
     
     protected boolean removeTrigger(Connection conn, TriggerKey key)
@@ -1437,8 +1449,12 @@ public abstract class JobStoreSupport implements JobStore, Constants {
             final OperableTrigger newTrigger) throws JobPersistenceException {
         return (Boolean) executeInLock(
                 LOCK_TRIGGER_ACCESS,
-                (TransactionCallback) conn -> replaceTrigger(conn, triggerKey, newTrigger) ?
-                        Boolean.TRUE : Boolean.FALSE);
+                new TransactionCallback() {
+                    public Object execute(Connection conn) throws JobPersistenceException {
+                        return replaceTrigger(conn, triggerKey, newTrigger) ?
+                                Boolean.TRUE : Boolean.FALSE;
+                    }
+                });
     }
     
     protected boolean replaceTrigger(Connection conn, 
@@ -1479,7 +1495,11 @@ public abstract class JobStoreSupport implements JobStore, Constants {
      */
     public OperableTrigger retrieveTrigger(final TriggerKey triggerKey) throws JobPersistenceException {
         return (OperableTrigger)executeWithoutLock( // no locks necessary for read...
-                (TransactionCallback) conn -> retrieveTrigger(conn, triggerKey));
+            new TransactionCallback() {
+                public Object execute(Connection conn) throws JobPersistenceException {
+                    return retrieveTrigger(conn, triggerKey);
+                }
+            });
     }
     
     protected OperableTrigger retrieveTrigger(Connection conn, TriggerKey key)
@@ -1686,8 +1706,12 @@ public abstract class JobStoreSupport implements JobStore, Constants {
         throws JobPersistenceException {
         return (Boolean) executeInLock(
                 LOCK_TRIGGER_ACCESS,
-                (TransactionCallback) conn -> removeCalendar(conn, calName) ?
-                        Boolean.TRUE : Boolean.FALSE);
+                new TransactionCallback() {
+                    public Object execute(Connection conn) throws JobPersistenceException {
+                        return removeCalendar(conn, calName) ?
+                                Boolean.TRUE : Boolean.FALSE;
+                    }
+                });
     }
     
     protected boolean removeCalendar(Connection conn, 

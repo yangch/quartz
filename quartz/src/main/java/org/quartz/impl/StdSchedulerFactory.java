@@ -599,7 +599,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
      * the contents of the given <code>Properties</code> object.
      * </p>
      */
-    public void initialize(Properties props) throws SchedulerException {
+    public void initialize(Properties props) {
         if (propSrc == null) {
             propSrc = "an externally provided properties instance.";
         }

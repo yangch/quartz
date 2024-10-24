@@ -299,7 +299,7 @@ public class JobRunShell extends SchedulerListenerSupport implements Runnable {
                             + jobExCtx.getTrigger().getKey() + " job= "
                             + jobExCtx.getJobDetail().getKey(), se);
 
-            vetoed = true;
+            return false;
         }
 
         if(vetoed) {

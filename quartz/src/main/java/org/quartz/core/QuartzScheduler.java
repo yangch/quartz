@@ -1851,10 +1851,8 @@ J     *
                     vetoedExecution = true;
                 }
             } catch (Exception e) {
-                SchedulerException se = new SchedulerException(
-                        "TriggerListener '" + tl.getName()
-                                + "' threw exception: " + e.getMessage(), e);
-                throw se;
+                throw new SchedulerException(jec,
+                        "TriggerListener '" + tl.getName() + "' threw exception: " + e.getMessage(), e);
             }
         }
         
@@ -1894,10 +1892,8 @@ J     *
                     continue;
                 tl.triggerComplete(jec.getTrigger(), jec, instCode);
             } catch (Exception e) {
-                SchedulerException se = new SchedulerException(
-                        "TriggerListener '" + tl.getName()
-                                + "' threw exception: " + e.getMessage(), e);
-                throw se;
+                throw new SchedulerException(jec,
+                        "TriggerListener '" + tl.getName() + "' threw exception: " + e.getMessage(), e);
             }
         }
     }
@@ -1914,10 +1910,8 @@ J     *
                     continue;
                 jl.jobToBeExecuted(jec);
             } catch (Exception e) {
-                SchedulerException se = new SchedulerException(
-                        "JobListener '" + jl.getName() + "' threw exception: "
-                                + e.getMessage(), e);
-                throw se;
+                throw new SchedulerException(jec,
+                        "JobListener '" + jl.getName() + "' threw exception: " + e.getMessage(), e);
             }
         }
     }
@@ -1934,10 +1928,8 @@ J     *
                     continue;
                 jl.jobExecutionVetoed(jec);
             } catch (Exception e) {
-                SchedulerException se = new SchedulerException(
-                        "JobListener '" + jl.getName() + "' threw exception: "
-                        + e.getMessage(), e);
-                throw se;
+                throw new SchedulerException(jec,
+                        "JobListener '" + jl.getName() + "' threw exception: " + e.getMessage(), e);
             }
         }
     }
@@ -1954,10 +1946,8 @@ J     *
                     continue;
                 jl.jobWasExecuted(jec, je);
             } catch (Exception e) {
-                SchedulerException se = new SchedulerException(
-                        "JobListener '" + jl.getName() + "' threw exception: "
-                                + e.getMessage(), e);
-                throw se;
+                throw new SchedulerException(jec,
+                        "JobListener '" + jl.getName() + "' threw exception: " + e.getMessage(), e);
             }
         }
     }

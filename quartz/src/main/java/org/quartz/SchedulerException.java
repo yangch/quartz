@@ -35,6 +35,8 @@ public class SchedulerException extends Exception {
   
     private static final long serialVersionUID = 174841398690789156L;
 
+    private JobExecutionContext jec = null;
+
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * 
@@ -59,7 +61,10 @@ public class SchedulerException extends Exception {
         super(msg, cause);
     }
 
-
+    public SchedulerException(JobExecutionContext jec, String msg, Throwable cause) {
+        super(msg, cause);
+        this.jec = jec;
+    }
     
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,6 +88,13 @@ public class SchedulerException extends Exception {
      */
     public Throwable getUnderlyingException() {
         return super.getCause();
+    }
+
+    /**
+     * @return Job execution context for the current task execution process, where the error occurred
+     */
+    public JobExecutionContext getJobExecutionContext() {
+        return this.jec;
     }
 
     @Override

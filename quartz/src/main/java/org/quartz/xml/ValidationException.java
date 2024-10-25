@@ -121,16 +121,20 @@ public class ValidationException extends Exception {
     public String getMessage() {
         if (getValidationExceptions().isEmpty()) { return super.getMessage(); }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder messageBuilder = new StringBuilder();
 
-        boolean first = true;
+        boolean isFirst = true;
 
         for (Exception e : getValidationExceptions()) {
+            if (!isFirst) {
+                messageBuilder.append('\n');
+            }
+            isFirst = false;
 
-            sb.append(e.getMessage());
+            messageBuilder.append(e.getMessage());
         }
 
-        return sb.toString();
+        return messageBuilder.toString();
     }
     
     

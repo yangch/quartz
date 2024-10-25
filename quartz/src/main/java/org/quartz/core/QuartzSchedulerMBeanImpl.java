@@ -209,14 +209,14 @@ public class QuartzSchedulerMBeanImpl extends StandardMBean implements
                 throw new IllegalArgumentException("No triggerClass specified");
             }
             Class<?> triggerClass = Class.forName(triggerClassName);
-            Trigger trigger = (Trigger) triggerClass.newInstance();
+            Trigger trigger = (Trigger) triggerClass.getDeclaredConstructor().newInstance();
             
             String jobDetailClassName = (String) abstractJobInfo.remove("jobDetailClass");
             if(jobDetailClassName == null) {
                 throw new IllegalArgumentException("No jobDetailClass specified");
             }
             Class<?> jobDetailClass = Class.forName(jobDetailClassName);
-            JobDetail jobDetail = (JobDetail) jobDetailClass.newInstance();
+            JobDetail jobDetail = (JobDetail) jobDetailClass.getDeclaredConstructor().newInstance();
             
             String jobClassName = (String) abstractJobInfo.remove("jobClass");
             if(jobClassName == null) {
@@ -272,7 +272,7 @@ public class QuartzSchedulerMBeanImpl extends StandardMBean implements
                 throw new IllegalArgumentException("No triggerClass specified");
             }
             Class<?> triggerClass = Class.forName(triggerClassName);
-            Trigger trigger = (Trigger) triggerClass.newInstance();
+            Trigger trigger = (Trigger) triggerClass.getDeclaredConstructor().newInstance();
             
             for(Map.Entry<String, Object> entry : abstractTriggerInfo.entrySet()) {
                 String key = entry.getKey();
@@ -304,7 +304,7 @@ public class QuartzSchedulerMBeanImpl extends StandardMBean implements
                 throw new IllegalArgumentException("No jobDetailClass specified");
             }
             Class<?> jobDetailClass = Class.forName(jobDetailClassName);
-            JobDetail jobDetail = (JobDetail) jobDetailClass.newInstance();
+            JobDetail jobDetail = (JobDetail) jobDetailClass.getDeclaredConstructor().newInstance();
             
             String jobClassName = (String) abstractJobInfo.remove("jobClass");
             if(jobClassName == null) {

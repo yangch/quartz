@@ -743,8 +743,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
         // Create class load helper
         ClassLoadHelper loadHelper = null;
         try {
-            loadHelper = (ClassLoadHelper) loadClass(classLoadHelperClass)
-                    .newInstance();
+            loadHelper = (ClassLoadHelper) loadClass(classLoadHelperClass).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             throw new SchedulerConfigException(
                     "Unable to instantiate class load helper class: "
@@ -765,7 +764,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
 
             RemoteMBeanScheduler jmxScheduler = null;
             try {
-                jmxScheduler = (RemoteMBeanScheduler)loadHelper.loadClass(jmxProxyClass)
+                jmxScheduler = (RemoteMBeanScheduler) loadHelper.loadClass(jmxProxyClass).getDeclaredConstructor()
                         .newInstance();
             } catch (Exception e) {
                 throw new SchedulerConfigException(
@@ -798,8 +797,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
         JobFactory jobFactory = null;
         if(jobFactoryClass != null) {
             try {
-                jobFactory = (JobFactory) loadHelper.loadClass(jobFactoryClass)
-                        .newInstance();
+                jobFactory = (JobFactory) loadHelper.loadClass(jobFactoryClass).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 throw new SchedulerConfigException(
                         "Unable to instantiate JobFactory class: "
@@ -820,7 +818,8 @@ public class StdSchedulerFactory implements SchedulerFactory {
         if(instanceIdGeneratorClass != null) {
             try {
                 instanceIdGenerator = (InstanceIdGenerator) loadHelper.loadClass(instanceIdGeneratorClass)
-                    .newInstance();
+                        .getDeclaredConstructor()
+                        .newInstance();
             } catch (Exception e) {
                 throw new SchedulerConfigException(
                         "Unable to instantiate InstanceIdGenerator class: "
@@ -849,7 +848,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
         }
 
         try {
-            tp = (ThreadPool) loadHelper.loadClass(tpClass).newInstance();
+            tp = (ThreadPool) loadHelper.loadClass(tpClass).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             initException = new SchedulerException("ThreadPool class '"
                     + tpClass + "' could not be instantiated.", e);
@@ -877,7 +876,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
         }
 
         try {
-            js = (JobStore) loadHelper.loadClass(jsClass).newInstance();
+            js = (JobStore) loadHelper.loadClass(jsClass).getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             initException = new SchedulerException("JobStore class '" + jsClass
                     + "' could not be instantiated.", e);
@@ -900,7 +899,8 @@ public class StdSchedulerFactory implements SchedulerFactory {
             String lockHandlerClass = cfg.getStringProperty(PROP_JOB_STORE_LOCK_HANDLER_CLASS);
             if (lockHandlerClass != null) {
                 try {
-                    Semaphore lockHandler = (Semaphore)loadHelper.loadClass(lockHandlerClass).newInstance();
+                    Semaphore lockHandler = (Semaphore) loadHelper.loadClass(lockHandlerClass)
+                            .getDeclaredConstructor().newInstance();
 
                     tProps = cfg.getPropertyGroup(PROP_JOB_STORE_LOCK_HANDLER_PREFIX, true);
 
@@ -944,7 +944,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
             if (cpClass != null) {
                 ConnectionProvider cp = null;
                 try {
-                    cp = (ConnectionProvider) loadHelper.loadClass(cpClass).newInstance();
+                    cp = (ConnectionProvider) loadHelper.loadClass(cpClass).getDeclaredConstructor().newInstance();
                 } catch (Exception e) {
                     initException = new SchedulerException("ConnectionProvider class '" + cpClass
                             + "' could not be instantiated.", e);
@@ -1082,7 +1082,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
             SchedulerPlugin plugin = null;
             try {
                 plugin = (SchedulerPlugin)
-                        loadHelper.loadClass(plugInClass).newInstance();
+                        loadHelper.loadClass(plugInClass).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 initException = new SchedulerException(
                         "SchedulerPlugin class '" + plugInClass
@@ -1122,7 +1122,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
             JobListener listener = null;
             try {
                 listener = (JobListener)
-                       loadHelper.loadClass(listenerClass).newInstance();
+                        loadHelper.loadClass(listenerClass).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 initException = new SchedulerException(
                         "JobListener class '" + listenerClass
@@ -1170,7 +1170,7 @@ public class StdSchedulerFactory implements SchedulerFactory {
             TriggerListener listener = null;
             try {
                 listener = (TriggerListener)
-                       loadHelper.loadClass(listenerClass).newInstance();
+                        loadHelper.loadClass(listenerClass).getDeclaredConstructor().newInstance();
             } catch (Exception e) {
                 initException = new SchedulerException(
                         "TriggerListener class '" + listenerClass
@@ -1207,7 +1207,9 @@ public class StdSchedulerFactory implements SchedulerFactory {
         if (threadExecutorClass != null) {
             tProps = cfg.getPropertyGroup(PROP_THREAD_EXECUTOR, true);
             try {
-                threadExecutor = (ThreadExecutor) loadHelper.loadClass(threadExecutorClass).newInstance();
+                threadExecutor = (ThreadExecutor) loadHelper.loadClass(threadExecutorClass)
+                        .getDeclaredConstructor()
+                        .newInstance();
                 log.info("Using custom implementation for ThreadExecutor: {}", threadExecutorClass);
 
                 setBeanProps(threadExecutor, tProps);

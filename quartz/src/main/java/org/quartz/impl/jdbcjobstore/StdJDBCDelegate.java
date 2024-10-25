@@ -158,7 +158,7 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
                 for(String trigDelClassName: trigDelegates) {
                     try {
                         Class<?> trigDelClass = classLoadHelper.loadClass(trigDelClassName);
-                        addTriggerPersistenceDelegate((TriggerPersistenceDelegate) trigDelClass.newInstance());
+                        addTriggerPersistenceDelegate((TriggerPersistenceDelegate) trigDelClass.getDeclaredConstructor().newInstance());
                     } catch (Exception e) {
                         throw new NoSuchDelegateException("Error instantiating TriggerPersistenceDelegate of type: " + trigDelClassName, e);
                     } 

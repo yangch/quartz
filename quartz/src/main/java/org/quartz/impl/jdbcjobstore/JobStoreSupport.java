@@ -20,6 +20,7 @@ package org.quartz.impl.jdbcjobstore;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Proxy;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -3172,16 +3173,21 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                         delegateClass = getClassLoadHelper().loadClass(delegateClassName, DriverDelegate.class);
                     }
 
-                    delegate = delegateClass.newInstance();
-                    
-                    delegate.initialize(getLog(), tablePrefix, instanceName, instanceId, getClassLoadHelper(), canUseProperties(), getDriverDelegateInitString());
-                    
-                } catch (InstantiationException | IllegalAccessException e) {
-                    throw new NoSuchDelegateException("Couldn't create delegate: "
-                            + e.getMessage(), e);
+                    if (delegate != null) {
+                        delegateClass.getDeclaredConstructor().newInstance();
+
+                        delegate.initialize(getLog(), tablePrefix, instanceName, instanceId, getClassLoadHelper(), canUseProperties(), getDriverDelegateInitString());
+                    }
+
                 } catch (ClassNotFoundException e) {
                     throw new NoSuchDelegateException("Couldn't load delegate class: "
                             + e.getMessage(), e);
+                } catch (NoSuchMethodException | InvocationTargetException e) {
+                    throw new RuntimeException(e);
+                } catch (InstantiationException e) {
+                    throw new RuntimeException(e);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
                 }
             }
             return delegate;

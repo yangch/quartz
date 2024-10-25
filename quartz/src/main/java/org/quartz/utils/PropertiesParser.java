@@ -258,7 +258,7 @@ public class PropertiesParser {
         try {
             while (stok.hasMoreTokens()) {
                 try {
-                    ints.add(new Integer(stok.nextToken().trim()));
+                    ints.add(Integer.valueOf(stok.nextToken().trim()));
                 } catch (NumberFormatException nfe) {
                     throw new NumberFormatException(" '" + vals + "'");
                 }
@@ -266,7 +266,7 @@ public class PropertiesParser {
                         
             int[] outInts = new int[ints.size()];
             for (int i = 0; i < ints.size(); i++) {
-                outInts[i] = (Integer) ints.get(i);
+                outInts[i] = ints.get(i);
             }
             return outInts;
         } catch (Exception e) {

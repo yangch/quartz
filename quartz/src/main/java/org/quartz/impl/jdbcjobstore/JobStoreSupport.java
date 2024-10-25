@@ -3173,9 +3173,9 @@ public abstract class JobStoreSupport implements JobStore, Constants {
                     }
 
                     delegate = delegateClass.newInstance();
-                    
+
                     delegate.initialize(getLog(), tablePrefix, instanceName, instanceId, getClassLoadHelper(), canUseProperties(), getDriverDelegateInitString());
-                    
+
                 } catch (InstantiationException | IllegalAccessException e) {
                     throw new NoSuchDelegateException("Couldn't create delegate: "
                             + e.getMessage(), e);

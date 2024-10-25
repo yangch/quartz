@@ -3067,7 +3067,8 @@ public class StdJDBCDelegate implements DriverDelegate, StdJDBCConstants {
     protected Object getKeyOfNonSerializableValue(Map<?, ?> data) {
         for (Map.Entry<?, ?> value : data.entrySet()) {
 
-            try (ByteArrayOutputStream baos = serializeObject(value.getValue())) {
+            try {
+                serializeObject(value.getValue()).close();
             } catch (IOException e) {
                 return value.getKey();
             }

@@ -1851,8 +1851,7 @@ J     *
                     vetoedExecution = true;
                 }
             } catch (Exception e) {
-                throw new SchedulerException(jec,
-                        "TriggerListener '" + tl.getName() + "' threw exception: " + e.getMessage(), e);
+                throw new JobExecutionProcessException(tl, jec, e);
             }
         }
         
@@ -1892,8 +1891,7 @@ J     *
                     continue;
                 tl.triggerComplete(jec.getTrigger(), jec, instCode);
             } catch (Exception e) {
-                throw new SchedulerException(jec,
-                        "TriggerListener '" + tl.getName() + "' threw exception: " + e.getMessage(), e);
+                throw new JobExecutionProcessException(tl, jec, e);
             }
         }
     }
@@ -1910,8 +1908,7 @@ J     *
                     continue;
                 jl.jobToBeExecuted(jec);
             } catch (Exception e) {
-                throw new SchedulerException(jec,
-                        "JobListener '" + jl.getName() + "' threw exception: " + e.getMessage(), e);
+                throw new JobExecutionProcessException(jl, jec, e);
             }
         }
     }
@@ -1928,8 +1925,7 @@ J     *
                     continue;
                 jl.jobExecutionVetoed(jec);
             } catch (Exception e) {
-                throw new SchedulerException(jec,
-                        "JobListener '" + jl.getName() + "' threw exception: " + e.getMessage(), e);
+                throw new JobExecutionProcessException(jl, jec, e);
             }
         }
     }
@@ -1946,8 +1942,7 @@ J     *
                     continue;
                 jl.jobWasExecuted(jec, je);
             } catch (Exception e) {
-                throw new SchedulerException(jec,
-                        "JobListener '" + jl.getName() + "' threw exception: " + e.getMessage(), e);
+                throw new JobExecutionProcessException(jl, jec, e);
             }
         }
     }

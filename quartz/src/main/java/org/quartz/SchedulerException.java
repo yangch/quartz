@@ -34,6 +34,7 @@ package org.quartz;
 public class SchedulerException extends Exception {
   
     private static final long serialVersionUID = 174841398690789156L;
+
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
      * 
@@ -57,6 +58,8 @@ public class SchedulerException extends Exception {
     public SchedulerException(String msg, Throwable cause) {
         super(msg, cause);
     }
+
+
     
     /*
      * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
